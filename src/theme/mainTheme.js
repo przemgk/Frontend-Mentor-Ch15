@@ -11,10 +11,14 @@ export const theme = {
     bold: 800
   },
   fontSize: {
-    small: '1.2rem',
-    regular: '1.4rem',
-    medium: '1.6rem',
-    xl: '2.2rem'
+    s: '1.2rem',
+    r: {
+      homePage: '1.4rem',
+      detailsPage: '1.6rem'
+    },
+    m: '1.8rem',
+    xl: '2.4rem',
+    xll: '3.2rem'
   }
 };
 

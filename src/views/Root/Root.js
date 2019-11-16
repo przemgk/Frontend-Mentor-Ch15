@@ -7,11 +7,9 @@ import { theme } from 'theme/mainTheme';
 const Root = () => (
   <>
     <Normalize />
-    <GlobalStyles />
     <ThemeProvider theme={theme}>
-      <>
-        <h1>Hello world</h1>
-      </>
+      <GlobalStyles />
+      <h1>Hello world</h1>
     </ThemeProvider>
   </>
 );

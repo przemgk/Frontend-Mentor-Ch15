@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-const Paragraph = styled.p`
-  color: red;
-`;
+const Paragraph = styled.p``;
 
 export default Paragraph;

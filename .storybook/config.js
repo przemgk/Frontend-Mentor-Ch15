@@ -8,8 +8,10 @@ import { theme } from 'theme/mainTheme';
 addDecorator(story => (
   <>
     <Normalize />
-    <GlobalStyles />
-    <ThemeProvider theme={theme}>{story()}</ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      {story()}
+    </ThemeProvider>
   </>
 ));
 
