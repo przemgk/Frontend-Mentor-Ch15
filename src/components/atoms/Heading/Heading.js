@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 const Heading = styled.h1`
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  font-size: ${({ theme }) => theme.fontSize.xl};
+  font-size: ${({ theme }) => theme.fontSize.l};
 
   ${({ small }) =>
     small &&
@@ -13,7 +13,7 @@ const Heading = styled.h1`
   ${({ large }) =>
     large &&
     css`
-      font-size: ${({ theme }) => theme.fontSize.xll};
+      font-size: ${({ theme }) => theme.fontSize.xl};
     `}
 `;
 

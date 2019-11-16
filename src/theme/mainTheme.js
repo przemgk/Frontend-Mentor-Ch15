@@ -13,12 +13,12 @@ export const theme = {
   fontSize: {
     s: '1.2rem',
     r: {
-      homePage: '1.4rem',
-      detailsPage: '1.6rem'
+      home: '1.4rem',
+      details: '1.6rem'
     },
     m: '1.8rem',
-    xl: '2.4rem',
-    xll: '3.2rem'
+    l: '2.4rem',
+    xl: '3.2rem'
   }
 };
 

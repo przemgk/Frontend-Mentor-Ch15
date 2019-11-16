@@ -3,9 +3,9 @@ import Heading from './Heading';
 
 export default {
   component: Heading,
-  title: 'Heading'
+  title: 'Atoms/Heading'
 };
 
-export const small = () => <Heading small>Hello Button</Heading>;
-export const normal = () => <Heading>Hello Button</Heading>;
-export const large = () => <Heading large>Hello Button</Heading>;
+export const small = () => <Heading small>This is small heading</Heading>;
+export const normal = () => <Heading>This is normal heading</Heading>;
+export const large = () => <Heading large>This is large heading</Heading>;
