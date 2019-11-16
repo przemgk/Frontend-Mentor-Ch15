@@ -1,5 +1,19 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import GlobalStyles from 'theme/GlobalStyles';
+import { Normalize } from 'styled-normalize';
+import { theme } from 'theme/mainTheme';
 
-const Root = () => <h1>Hello new project!!!</h1>;
+const Root = () => (
+  <>
+    <Normalize />
+    <GlobalStyles />
+    <ThemeProvider theme={theme}>
+      <>
+        <h1>Hello world</h1>
+      </>
+    </ThemeProvider>
+  </>
+);
 
 export default Root;
