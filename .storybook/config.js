@@ -4,15 +4,20 @@ import GlobalStyles from 'theme/GlobalStyles';
 import { Normalize } from 'styled-normalize';
 import { ThemeProvider } from 'styled-components';
 import { theme } from 'theme/mainTheme';
+import styled from 'styled-components';
+
+const StyledStorybookWrapper = styled.div`
+  padding: 24px;
+`;
 
 addDecorator(story => (
-  <>
+  <StyledStorybookWrapper>
     <Normalize />
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       {story()}
     </ThemeProvider>
-  </>
+  </StyledStorybookWrapper>
 ));
 
 // automatically import all files ending in *.stories.js
