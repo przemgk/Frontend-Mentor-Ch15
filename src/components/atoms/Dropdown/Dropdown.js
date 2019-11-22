@@ -15,7 +15,7 @@ const StyledLabel = styled.span`
   padding: 16px 44px 16px 24px;
   margin-bottom: 4px;
   border-radius: 6px;
-  box-shadow: 0 0 8px -3px ${({ theme }) => theme.shadowsColor};
+  box-shadow: 0 0 8px -3px ${({ theme }) => theme.shadowColor};
   cursor: pointer;
   z-index: 2;
 
@@ -44,10 +44,10 @@ const StyledList = styled.ul`
   left: 0;
   right: 0;
   margin: 0;
-  padding: 0;
+  padding: 12px 0;
   list-style: none;
   border-radius: 6px;
-  box-shadow: 0 0 8px -3px ${({ theme }) => theme.shadowsColor};
+  box-shadow: 0 0 8px -3px ${({ theme }) => theme.shadowColor};
   transform: scaleY(0);
   transform-origin: top center;
   opacity: 0;
@@ -61,15 +61,30 @@ const StyledList = styled.ul`
 `;
 
 const StyledItem = styled.li`
-  padding: 16px 24px 0px;
+  position: relative;
+  padding: 12px 24px;
   cursor: pointer;
+  overflow: hidden;
 
-  &:first-of-type {
-    padding-top: 20px;
+  &:hover::after {
+    opacity: 0.4;
+    transform: translateY(-50%) scale(20);
+    transition: opacity 0.2s ease-in, transform 0.4s ease-in;
   }
 
-  &:last-of-type {
-    padding-bottom: 20px;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 40px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.fontColor.tertiary};
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: opacity 0.2s ease-in 0.2s, transform 0.4s ease-in;
+    z-index: -1;
   }
 `;
 

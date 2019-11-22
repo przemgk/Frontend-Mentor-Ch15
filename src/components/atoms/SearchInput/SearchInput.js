@@ -10,7 +10,7 @@ const SearchInput = styled.input.attrs(() => ({
   padding: 16px 24px 16px 52px;
   border: 0;
   border-radius: 6px;
-  box-shadow: 0 4px 12px -4px ${({ theme }) => theme.shadowsColor};
+  box-shadow: 0 4px 12px -4px ${({ theme }) => theme.shadowColor};
   background-image: url(${SearchIcon});
   background-repeat: no-repeat;
   background-size: 16px auto;
