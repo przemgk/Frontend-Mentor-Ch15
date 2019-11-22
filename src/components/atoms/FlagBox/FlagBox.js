@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const FlagBox = styled.div`
   width: 100%;
@@ -8,5 +9,9 @@ const FlagBox = styled.div`
   background-size: cover;
   background-position: center;
 `;
+
+FlagBox.propTypes = {
+  url: PropTypes.string.isRequired
+};
 
 export default FlagBox;
