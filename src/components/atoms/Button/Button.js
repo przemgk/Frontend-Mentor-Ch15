@@ -4,7 +4,7 @@ const Button = styled.button`
   padding: 12px 24px;
   border: 0;
   border-radius: 6px;
-  font-weight: ${({ theme }) => theme.fontWeight.light};
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
   color: ${({ theme }) => theme.fontColor.primary};
   background-color: transparent;
   box-shadow: 0 0 12px -4px ${({ theme }) => theme.shadowsColor};
@@ -19,7 +19,7 @@ const Button = styled.button`
   ${({ hideShadow }) =>
     hideShadow &&
     css`
-      font-weight: ${({ theme }) => theme.fontWeight.regular};
+      font-weight: ${({ theme }) => theme.fontWeight.semiBold};
       box-shadow: unset;
     `}
 

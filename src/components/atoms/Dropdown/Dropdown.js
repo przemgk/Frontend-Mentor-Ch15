@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import IconArrowHead from 'assets/icon-arrowhead.svg';
+import ArrowHeadIcon from 'assets/icon-arrowhead.svg';
 
 const StyledWrapper = styled.div`
   display: block;
@@ -12,7 +12,7 @@ const StyledWrapper = styled.div`
 const StyledLabel = styled.span`
   display: block;
   position: relative;
-  padding: 12px 40px 12px 16px;
+  padding: 16px 44px 16px 24px;
   margin-bottom: 4px;
   border-radius: 6px;
   box-shadow: 0 0 8px -3px ${({ theme }) => theme.shadowsColor};
@@ -23,10 +23,10 @@ const StyledLabel = styled.span`
     content: '';
     position: absolute;
     top: 50%;
-    right: 16px;
+    right: 24px;
     width: 8px;
     height: 8px;
-    background-image: url(${IconArrowHead});
+    background-image: url(${ArrowHeadIcon});
     background-repeat: no-repeat;
     background-position: center center;
     background-size: contain;
@@ -61,7 +61,7 @@ const StyledList = styled.ul`
 `;
 
 const StyledItem = styled.li`
-  padding: 16px 16px 0px;
+  padding: 16px 24px 0px;
   cursor: pointer;
 
   &:first-of-type {

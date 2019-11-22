@@ -8,7 +8,7 @@ const Heading = styled.h1`
     small &&
     css`
       font-size: ${({ theme }) => theme.fontSize.m};
-      font-weight: ${({ theme }) => theme.fontWeight.regular};
+      font-weight: ${({ theme }) => theme.fontWeight.semiBold};
     `}
 
   ${({ large }) =>

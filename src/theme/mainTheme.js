@@ -1,14 +1,15 @@
 export const theme = {
   elementBgColor: 'hsl(0, 0%, 100%)',
   bgColor: 'hsl(0, 0%, 98%)',
-  shadowsColor: 'hsl(0, 0%, 52%)',
+  shadowsColor: 'hsl(0, 0%, 80%)',
   fontColor: {
     primary: 'hsl(200, 15%, 8%)',
-    secondary: 'hsl(0, 0%, 52%)'
+    secondary: 'hsl(0, 0%, 52%)',
+    tertiary: 'hsl(0, 0%, 88%)'
   },
   fontWeight: {
-    light: 300,
-    regular: 600,
+    regular: 300,
+    semiBold: 600,
     bold: 800
   },
   fontSize: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { withKnobs, select, boolean } from '@storybook/addon-knobs';
-import IconMoon from 'assets/icon-moon.svg';
-import IconArrow from 'assets/icon-arrow.svg';
+import MoonIcon from 'assets/icon-moon.svg';
+import ArrowIcon from 'assets/icon-arrow.svg';
 import Button from './Button';
 
 export default {
@@ -25,10 +25,10 @@ export const small = () => <Button small>This is small Button</Button>;
 export const withIcon = () => {
   const labelSelect = 'Select icon';
   const optionsSelect = {
-    moon: IconMoon,
-    arrow: IconArrow
+    moon: MoonIcon,
+    arrow: ArrowIcon
   };
-  const defaultValueSelect = IconMoon;
+  const defaultValueSelect = MoonIcon;
   const groupIdSelect = 'GROUP-ID1';
 
   const valueSelect = select(labelSelect, optionsSelect, defaultValueSelect, groupIdSelect);
