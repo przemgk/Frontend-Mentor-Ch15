@@ -96,10 +96,10 @@ class Dropdown extends Component {
 
   handleDropdownRollKey = e => e.key === 'Escape' && this.setState({ isActive: false });
 
-  handleDropdownUnroll = () =>
-    this.setState({
-      isActive: true
-    });
+  handleDropdown = () =>
+    this.setState(prevState => ({
+      isActive: !prevState.isActive
+    }));
 
   handleChooseItem = e => this.setState({ isActive: false, chosenElement: e.target.textContent });
 
@@ -109,7 +109,7 @@ class Dropdown extends Component {
 
     return (
       <StyledWrapper ref={this.references} className={isActive && 'active'}>
-        <StyledLabel onClick={this.handleDropdownUnroll}>
+        <StyledLabel onClick={this.handleDropdown}>
           {chosenElement === '' ? label : chosenElement}
         </StyledLabel>
         <StyledList>
