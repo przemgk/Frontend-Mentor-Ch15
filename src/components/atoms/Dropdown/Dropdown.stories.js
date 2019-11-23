@@ -9,16 +9,16 @@ export default {
 };
 
 export const normal = () => {
-  const objectLabel = 'Data';
-  const objectDefaultValue = {
+  const labelDropdown = 'Data';
+  const defaultValueDropdown = {
     label: 'Filter by Region',
     options: ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
   };
-  const objectGroupId = 'GROUP-ID1';
+  const groupIdDropdown = 'GROUP-ID1';
 
-  const value = object(objectLabel, objectDefaultValue, objectGroupId);
+  const valueDropdown = object(labelDropdown, defaultValueDropdown, groupIdDropdown);
 
-  const { label, options } = value;
+  const { label, options } = valueDropdown;
 
   return <Dropdown label={label} options={options} />;
 };

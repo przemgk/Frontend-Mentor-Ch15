@@ -35,7 +35,7 @@ const Button = styled.button`
       box-shadow: 0 0 8px -3px ${({ theme }) => theme.shadowColor};
 
       &::after {
-        box-shadow: inset 0 0 0 1px ${({ theme }) => theme.shadowColor};
+        box-shadow: inset 0 0 0 2px ${({ theme }) => theme.shadowColor};
       }
     `}
 

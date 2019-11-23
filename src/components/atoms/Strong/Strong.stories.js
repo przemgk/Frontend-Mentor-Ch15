@@ -9,21 +9,26 @@ export default {
 };
 
 export const normal = () => {
-  const textLabel = 'Strong content';
-  const textDefaultValue = 'This is sample strong';
-  const textGroupId = 'GROUP-ID1';
+  const labelText = 'Strong content';
+  const defaultValueText = 'This is sample strong';
+  const groupIdText = 'GROUP-ID1';
 
-  const textValue = text(textLabel, textDefaultValue, textGroupId);
+  const valueText = text(labelText, defaultValueText, groupIdText);
 
-  const selectLabel = 'Page type';
-  const selectOptions = {
+  const labelPageType = 'Page type';
+  const optionsPageType = {
     home: 'home',
     details: 'details'
   };
-  const selectDefaultValue = 'home';
-  const selectGroupId = 'GROUP-ID1';
+  const defaultValuePageType = 'home';
+  const groupIdPageType = 'GROUP-ID1';
 
-  const selectValue = select(selectLabel, selectOptions, selectDefaultValue, selectGroupId);
+  const valuePageType = select(
+    labelPageType,
+    optionsPageType,
+    defaultValuePageType,
+    groupIdPageType
+  );
 
-  return <Strong pageType={selectValue}>{textValue}</Strong>;
+  return <Strong pageType={valuePageType}>{valueText}</Strong>;
 };

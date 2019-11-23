@@ -11,36 +11,36 @@ export default {
 };
 
 export const normal = () => {
-  const labelBoolean = 'Hide shadow';
-  const defaultValueBoolean = false;
-  const groupIdBoolean = 'GROUP-ID1';
+  const labelShadow = 'Hide shadow';
+  const defaultValueShadow = false;
+  const groupIdShadow = 'GROUP-ID1';
 
-  const valueBoolean = boolean(labelBoolean, defaultValueBoolean, groupIdBoolean);
+  const valueShadow = boolean(labelShadow, defaultValueShadow, groupIdShadow);
 
-  return <Button hideShadow={valueBoolean}>This is sample button</Button>;
+  return <Button hideShadow={valueShadow}>This is sample button</Button>;
 };
 
 export const small = () => <Button small>This is small Button</Button>;
 
 export const withIcon = () => {
-  const labelSelect = 'Select icon';
-  const optionsSelect = {
+  const labelIcon = 'Select icon';
+  const optionsIcon = {
     moon: MoonIcon,
     arrow: ArrowIcon
   };
-  const defaultValueSelect = MoonIcon;
-  const groupIdSelect = 'GROUP-ID1';
+  const defaultValueIcon = MoonIcon;
+  const groupIdIcon = 'GROUP-ID1';
 
-  const valueSelect = select(labelSelect, optionsSelect, defaultValueSelect, groupIdSelect);
+  const valueIcon = select(labelIcon, optionsIcon, defaultValueIcon, groupIdIcon);
 
-  const labelBoolean = 'Hide shadow';
-  const defaultValueBoolean = false;
-  const groupIdBoolean = 'GROUP-ID1';
+  const labelShadow = 'Hide shadow';
+  const defaultValueShadow = false;
+  const groupIdShadow = 'GROUP-ID1';
 
-  const valueBoolean = boolean(labelBoolean, defaultValueBoolean, groupIdBoolean);
+  const valueShadow = boolean(labelShadow, defaultValueShadow, groupIdShadow);
 
   return (
-    <Button hideShadow={valueBoolean} icon={valueSelect}>
+    <Button hideShadow={valueShadow} icon={valueIcon}>
       This is icon button
     </Button>
   );
