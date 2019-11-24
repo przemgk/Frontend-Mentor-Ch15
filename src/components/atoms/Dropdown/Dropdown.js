@@ -13,7 +13,6 @@ const StyledLabel = styled.span`
   display: block;
   position: relative;
   padding: 16px 44px 16px 24px;
-  margin-bottom: 4px;
   border-radius: 6px;
   box-shadow: 0 0 8px -3px ${({ theme }) => theme.shadowColor};
   cursor: pointer;
@@ -43,7 +42,7 @@ const StyledList = styled.ul`
   position: absolute;
   left: 0;
   right: 0;
-  margin: 0;
+  margin: 4px 0 0 0;
   padding: 12px 0;
   list-style: none;
   border-radius: 6px;
