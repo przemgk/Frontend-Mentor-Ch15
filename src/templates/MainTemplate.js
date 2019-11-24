@@ -1,17 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from 'theme/GlobalStyles';
 import { Normalize } from 'styled-normalize';
 import { theme } from 'theme/mainTheme';
 
-const Root = () => (
+const MainTemplate = ({ children }) => (
   <>
     <Normalize />
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <h1>Hello world</h1>
+      {children}
     </ThemeProvider>
   </>
 );
 
-export default Root;
+MainTemplate.propTypes = {
+  children: PropTypes.element.isRequired
+};
+
+export default MainTemplate;
