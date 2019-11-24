@@ -9,37 +9,37 @@ export default {
 };
 
 export const text = () => {
-  const labelLabel = 'Label';
+  const labelOfLabel = 'Label';
   const defaultValueLabel = 'Languages';
   const groupIdLabel = 'GROUP-ID1';
 
-  const valueLabel = knobsText(labelLabel, defaultValueLabel, groupIdLabel);
+  const valueLabel = knobsText(labelOfLabel, defaultValueLabel, groupIdLabel);
 
-  const labelDesc = 'Description';
-  const defaultValueDesc = 'Dutch, French, German';
-  const groupIdDesc = 'GROUP-ID1';
+  const labelValue = 'Value';
+  const defaultValueOfValue = 'Dutch, French, German';
+  const groupIdValue = 'GROUP-ID1';
 
-  const valueDesc = knobsText(labelDesc, defaultValueDesc, groupIdDesc);
+  const valueOfValue = knobsText(labelValue, defaultValueOfValue, groupIdValue);
 
-  return <DataSet pageType="home" type="text" label={valueLabel} description={valueDesc} />;
+  return <DataSet pageType="home" type="text" label={valueLabel} value={valueOfValue} />;
 };
 
 export const buttons = () => {
-  const labelLabel = 'Label';
+  const labelOfLabel = 'Label';
   const defaultValueLabel = 'Border countries';
   const groupIdLabel = 'GROUP-ID1';
 
-  const valueLabel = knobsText(labelLabel, defaultValueLabel, groupIdLabel);
+  const valueLabel = knobsText(labelOfLabel, defaultValueLabel, groupIdLabel);
 
-  const labelDesc = 'Description';
-  const defaultValueDesc = [
+  const labelValue = 'Value';
+  const defaultValueOfValue = [
     { name: 'France', url: 'fr' },
     { name: 'Germany', url: 'ger' },
     { name: 'Netherlands', url: 'nth' }
   ];
-  const groupIdDesc = 'GROUP-ID1';
+  const groupIdValue = 'GROUP-ID1';
 
-  const valueDesc = object(labelDesc, defaultValueDesc, groupIdDesc);
+  const valueOfValue = object(labelValue, defaultValueOfValue, groupIdValue);
 
-  return <DataSet pageType="home" type="buttons" label={valueLabel} description={valueDesc} />;
+  return <DataSet pageType="home" type="buttons" label={valueLabel} value={valueOfValue} />;
 };

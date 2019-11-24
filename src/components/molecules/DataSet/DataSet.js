@@ -6,10 +6,6 @@ import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
 import PropTypes from 'prop-types';
 
-const StyledWrapper = styled.div`
-  margin: 16px 0;
-`;
-
 const StyledHeading = styled(Heading)`
   margin-bottom: 24px;
 `;
@@ -22,12 +18,12 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const DataSet = ({ pageType, type, label, description }) => (
-  <StyledWrapper>
+const DataSet = ({ pageType, type, label, value }) => (
+  <div>
     {type === 'text' && (
       <>
         <Strong pageType={pageType}>{label}: </Strong>
-        <Paragraph pageType={pageType}>{description}</Paragraph>
+        <Paragraph pageType={pageType}>{value}</Paragraph>
       </>
     )}
 
@@ -36,19 +32,19 @@ const DataSet = ({ pageType, type, label, description }) => (
         <StyledHeading as="h3" small>
           {`${label}: `}
         </StyledHeading>
-        {description.map(item => (
+        {value.map(item => (
           <StyledButton small>{item.name}</StyledButton>
         ))}
       </>
     )}
-  </StyledWrapper>
+  </div>
 );
 
 DataSet.propTypes = {
   pageType: PropTypes.oneOf(['home', 'details']).isRequired,
   type: PropTypes.oneOf(['text', 'buttons']).isRequired,
   label: PropTypes.string.isRequired,
-  description: PropTypes.oneOfType([
+  value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(
       PropTypes.shape({
