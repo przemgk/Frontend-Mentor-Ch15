@@ -15,8 +15,26 @@ const StyledLabel = styled.span`
   padding: 16px 44px 16px 24px;
   border-radius: 6px;
   box-shadow: 0 0 8px -3px ${({ theme }) => theme.shadowColor};
+  background-color: ${({ theme }) => theme.elementBgColor};
   cursor: pointer;
   z-index: 2;
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    box-shadow: 0 0 8px 0 ${({ theme }) => theme.shadowColor};
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+  }
 
   &::after {
     content: '';
@@ -47,6 +65,7 @@ const StyledList = styled.ul`
   list-style: none;
   border-radius: 6px;
   box-shadow: 0 0 8px -3px ${({ theme }) => theme.shadowColor};
+  background-color: ${({ theme }) => theme.elementBgColor};
   transform: scaleY(0);
   transform-origin: top center;
   opacity: 0;

@@ -7,7 +7,7 @@ import Button from 'components/atoms/Button/Button';
 import PropTypes from 'prop-types';
 
 const StyledHeading = styled(Heading)`
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 `;
 
 const StyledButton = styled(Button)`
@@ -33,7 +33,9 @@ const DataSet = ({ pageType, type, label, value }) => (
           {`${label}: `}
         </StyledHeading>
         {value.map(item => (
-          <StyledButton small>{item.name}</StyledButton>
+          <StyledButton small key={item.name}>
+            {item.name}
+          </StyledButton>
         ))}
       </>
     )}

@@ -4,12 +4,11 @@ import SearchInput from 'components/atoms/SearchInput/SearchInput';
 import Dropdown from 'components/atoms/Dropdown/Dropdown';
 
 const StyledWrapper = styled.div`
-  display: grid;
-  justify-items: end;
-  grid-template-columns: 3fr 1fr;
-  grid-gap: 40px;
   width: 100%;
-  padding: 24px 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 10%;
 `;
 
 const StyledSearchInput = styled(SearchInput)`

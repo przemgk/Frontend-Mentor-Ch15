@@ -4,6 +4,8 @@ import SearchIcon from 'assets/icon-search.svg';
 const SearchInput = styled.input.attrs(() => ({
   type: 'search'
 }))`
+  display: inline-block;
+  position: relative;
   font-size: ${({ theme }) => theme.fontSize.r.home};
   font-weight: ${({ theme }) => theme.fontWeight.semiBold};
   width: 100%;

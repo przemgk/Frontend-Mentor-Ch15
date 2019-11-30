@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 const Button = styled.button`
+  display: inline-block;
   position: relative;
   padding: 12px 24px;
   border: 0;
@@ -8,7 +9,7 @@ const Button = styled.button`
   font-weight: ${({ theme }) => theme.fontWeight.regular};
   color: ${({ theme }) => theme.fontColor.primary};
   text-decoration: none;
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.elementBgColor};
   box-shadow: 0 0 12px -4px ${({ theme }) => theme.shadowColor};
   cursor: pointer;
 
@@ -45,6 +46,7 @@ const Button = styled.button`
     css`
       font-weight: ${({ theme }) => theme.fontWeight.semiBold};
       box-shadow: unset;
+      background-color: transparent;
 
       &:hover::after {
         transform: scaleX(1);

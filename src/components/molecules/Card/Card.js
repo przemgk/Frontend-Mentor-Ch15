@@ -59,7 +59,7 @@ const Card = ({ title, desc, flagUrl }) => (
       </StyledHeading>
       <StyledDataGrid>
         {desc.map(({ label, value }) => (
-          <DataSet pageType="home" type="text" label={label} value={value} />
+          <DataSet pageType="home" type="text" label={label} value={value} key={label} />
         ))}
       </StyledDataGrid>
     </StyledContentWrapper>
