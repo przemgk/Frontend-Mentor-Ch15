@@ -1,5 +1,6 @@
 import React from 'react';
+import DetailsTemplate from 'templates/DetailsTemplate';
 
-const Details = () => <h1>Details</h1>;
+const Details = () => <DetailsTemplate />;
 
 export default Details;
