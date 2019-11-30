@@ -20,6 +20,7 @@ const GlobalStyles = createGlobalStyle`
     font-size: ${({ theme }) => theme.fontSize.r.home};
     font-weight: ${({ theme }) => theme.fontWeight.regular};
     color: ${({ theme }) => theme.fontColor.primary};
+    background-color: ${({ theme }) => theme.bgColor};
   }
 `;
 

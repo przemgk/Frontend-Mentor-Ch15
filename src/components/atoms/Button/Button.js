@@ -7,6 +7,7 @@ const Button = styled.button`
   border-radius: 6px;
   font-weight: ${({ theme }) => theme.fontWeight.regular};
   color: ${({ theme }) => theme.fontColor.primary};
+  text-decoration: none;
   background-color: transparent;
   box-shadow: 0 0 12px -4px ${({ theme }) => theme.shadowColor};
   cursor: pointer;
