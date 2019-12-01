@@ -3,6 +3,7 @@ import MenuBarTemplate from 'templates/MenuBarTemplate';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { routes } from 'routes';
 import Button from 'components/atoms/Button/Button';
 import FlagBox from 'components/atoms/FlagBox/FlagBox';
 import Heading from 'components/atoms/Heading/Heading';
@@ -58,7 +59,7 @@ const DetailsTemplate = ({
     <StyledWrapper>
       <MenuBarTemplate>
         <StyledBar>
-          <Button as={Link} to="/" icon={ArrowIcon}>
+          <Button as={Link} to={routes.home} icon={ArrowIcon}>
             Back
           </Button>
         </StyledBar>

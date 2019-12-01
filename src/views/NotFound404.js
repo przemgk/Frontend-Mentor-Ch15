@@ -6,6 +6,7 @@ import Button from 'components/atoms/Button/Button';
 import styled from 'styled-components';
 import ArrowIcon from 'assets/icon-arrow.svg';
 import { Redirect } from 'react-router-dom';
+import { routes } from 'routes';
 
 const StyledHeading = styled(Heading)`
   display: block;
@@ -29,7 +30,7 @@ class NotFound404 extends Component {
     const { redirect } = this.state;
 
     if (redirect) {
-      return <Redirect to="/" />;
+      return <Redirect to={routes.home} />;
     }
 
     return (

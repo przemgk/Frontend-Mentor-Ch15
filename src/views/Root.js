@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { routes } from 'routes';
 import MainTemplate from 'templates/MainTemplate';
 import Home from 'views/Home';
 import Details from 'views/Details';
@@ -9,13 +10,13 @@ const Root = () => (
   <BrowserRouter>
     <MainTemplate>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/africa" component={Home} />
-        <Route exact path="/america" component={Home} />
-        <Route exact path="/asia" component={Home} />
-        <Route exact path="/europe" component={Home} />
-        <Route exact path="/oceania" component={Home} />
-        <Route exact path="/countries/:id" component={Details} />
+        <Route exact path={routes.home} component={Home} />
+        <Route exact path={routes.africa} component={Home} />
+        <Route exact path={routes.america} component={Home} />
+        <Route exact path={routes.asia} component={Home} />
+        <Route exact path={routes.europe} component={Home} />
+        <Route exact path={routes.oceania} component={Home} />
+        <Route exact path={routes.countries} component={Details} />
         <Route exact path="*" component={NotFound404} />
       </Switch>
     </MainTemplate>

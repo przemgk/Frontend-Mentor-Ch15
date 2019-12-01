@@ -4,6 +4,7 @@ import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
 import MoonIcon from 'assets/icon-moon.svg';
 import { Link } from 'react-router-dom';
+import { routes } from 'routes';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -27,7 +28,7 @@ const StyledLink = styled(Link)`
 const TopBar = () => (
   <StyledWrapper>
     <StyledHeading as="h1">
-      <StyledLink to="/">Where in the world?</StyledLink>
+      <StyledLink to={routes.home}>Where in the world?</StyledLink>
     </StyledHeading>
     <Button icon={MoonIcon} hideShadow>
       Dark mode
