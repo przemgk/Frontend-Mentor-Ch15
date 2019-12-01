@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import ArrowHeadIcon from 'assets/icon-arrowhead.svg';
@@ -18,6 +19,10 @@ const StyledLabel = styled.span`
   background-color: ${({ theme }) => theme.elementBgColor};
   cursor: pointer;
   z-index: 2;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 
   &:hover::before {
     opacity: 1;
@@ -79,10 +84,17 @@ const StyledList = styled.ul`
 `;
 
 const StyledItem = styled.li`
+  display: block;
+  text-decoration: none;
+  color: inherit;
   position: relative;
   padding: 12px 24px;
   cursor: pointer;
   overflow: hidden;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 
   &:hover::after {
     opacity: 0.4;
@@ -117,6 +129,8 @@ class Dropdown extends Component {
   componentDidMount() {
     document.addEventListener('keydown', this.handleDropdownRollKey);
     document.addEventListener('mousedown', this.handleDropdownRollMouse);
+
+    this.setCurrentOption();
   }
 
   componentWillUnmount() {
@@ -136,6 +150,19 @@ class Dropdown extends Component {
 
   handleChooseItem = e => this.setState({ isActive: false, chosenElement: e.target.textContent });
 
+  setCurrentOption = () => {
+    const {
+      options,
+      location: { pathname }
+    } = this.props;
+
+    const [currentOption] = options.filter(option => option.toLowerCase() === pathname.substr(1));
+
+    if (currentOption) {
+      this.setState({ chosenElement: currentOption });
+    }
+  };
+
   render() {
     const { options, label } = this.props;
     const { isActive, chosenElement } = this.state;
@@ -146,9 +173,14 @@ class Dropdown extends Component {
           {chosenElement === '' ? label : chosenElement}
         </StyledLabel>
         <StyledList>
-          {options.map(item => (
-            <StyledItem key={item} onClick={this.handleChooseItem}>
-              {item}
+          {options.map(option => (
+            <StyledItem
+              as={Link}
+              to={`/${option.toLowerCase()}`}
+              key={option}
+              onClick={this.handleChooseItem}
+            >
+              {option}
             </StyledItem>
           ))}
         </StyledList>
@@ -159,7 +191,10 @@ class Dropdown extends Component {
 
 Dropdown.propTypes = {
   label: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired
+  }).isRequired
 };
 
-export default Dropdown;
+export default withRouter(Dropdown);
