@@ -11,13 +11,9 @@ const StyledWrapper = styled.div`
   padding: 40px 10%;
 `;
 
-const StyledSearchInput = styled(SearchInput)`
-  justify-self: start;
-`;
-
 const FilterBar = () => (
   <StyledWrapper>
-    <StyledSearchInput placeholder="Search for a country..." />
+    <SearchInput placeholder="Search for a country..." />
     <Dropdown
       label="Filter by Region"
       options={['Africa', 'America', 'Asia', 'Europe', 'Oceania']}
