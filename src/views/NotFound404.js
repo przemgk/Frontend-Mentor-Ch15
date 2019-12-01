@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ModalTemplate from 'templates/ModalTemplate';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Button from 'components/atoms/Button/Button';
 import styled from 'styled-components';
 import ArrowIcon from 'assets/icon-arrow.svg';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 const StyledHeading = styled(Heading)`
   display: block;
@@ -20,17 +20,31 @@ const StyledParagraph = styled(Paragraph)`
   text-align: center;
 `;
 
-const NotFound404 = () => (
-  <ModalTemplate messageBgCode="404">
-    <StyledHeading>404</StyledHeading>
-    <Heading as="h2">Page not found</Heading>
-    <StyledParagraph pageType="home">
-      The link you clicked may be broken or the page may have removed or renamed.
-    </StyledParagraph>
-    <Button as={Link} to="/" hideShadow icon={ArrowIcon}>
-      Go to home page
-    </Button>
-  </ModalTemplate>
-);
+class NotFound404 extends Component {
+  state = { redirect: false };
+
+  handleRedirect = () => this.setState({ redirect: true });
+
+  render() {
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to="/" />;
+    }
+
+    return (
+      <ModalTemplate messageBgCode="404">
+        <StyledHeading>404</StyledHeading>
+        <Heading as="h2">Page not found</Heading>
+        <StyledParagraph pageType="home">
+          The link you clicked may be broken or the page may have removed or renamed.
+        </StyledParagraph>
+        <Button onClick={this.handleRedirect} hideShadow icon={ArrowIcon}>
+          Go to home page
+        </Button>
+      </ModalTemplate>
+    );
+  }
+}
 
 export default NotFound404;

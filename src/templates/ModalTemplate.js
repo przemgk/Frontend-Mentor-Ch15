@@ -22,7 +22,7 @@ const StyledWrapper = styled.div`
 const ModalTemplate = ({ children }) => <StyledWrapper>{children}</StyledWrapper>;
 
 ModalTemplate.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.node.isRequired
 };
 
 export default ModalTemplate;

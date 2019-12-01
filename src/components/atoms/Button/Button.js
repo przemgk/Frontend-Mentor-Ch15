@@ -50,6 +50,7 @@ const Button = styled.button`
 
       &:hover::after {
         transform: scaleX(1);
+        opacity: 1;
       }
 
       &::after {
@@ -59,6 +60,7 @@ const Button = styled.button`
         height: 2px;
         box-shadow: unset;
         transform: scaleX(0);
+        opacity: 0;
         transition: opacity 0.3s ease-in, transform 0.3s ease-in;
       }
     `}
