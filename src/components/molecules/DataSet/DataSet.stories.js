@@ -21,7 +21,7 @@ export const text = () => {
 
   const valueOfValue = knobsText(labelValue, defaultValueOfValue, groupIdValue);
 
-  return <DataSet pageType="home" type="text" label={valueLabel} value={valueOfValue} />;
+  return <DataSet type="text" label={valueLabel} value={valueOfValue} />;
 };
 
 export const buttons = () => {
@@ -41,5 +41,5 @@ export const buttons = () => {
 
   const valueOfValue = object(labelValue, defaultValueOfValue, groupIdValue);
 
-  return <DataSet pageType="home" type="buttons" label={valueLabel} value={valueOfValue} />;
+  return <DataSet type="buttons" label={valueLabel} value={valueOfValue} />;
 };

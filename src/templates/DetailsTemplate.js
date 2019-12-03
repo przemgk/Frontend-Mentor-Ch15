@@ -70,26 +70,16 @@ const DetailsTemplate = ({
               Belgium
             </Heading>
             <StyledEssentialData>
-              <DataSet pageType="home" type="text" label="Native name" value={nativeName} />
-              <DataSet pageType="home" type="text" label="Population" value={population} />
-              <DataSet pageType="home" type="text" label="Region" value={region} />
-              <DataSet pageType="home" type="text" label="Sub region" value={subRegion} />
-              <DataSet pageType="home" type="text" label="Capital" value={capital} />
-              <DataSet
-                pageType="home"
-                type="text"
-                label="Top level domain"
-                value={topLevelDomain}
-              />
-              <DataSet pageType="home" type="text" label="Currencies" value={currencies} />
-              <DataSet pageType="home" type="text" label="Languages" value={languages} />
+              <DataSet type="text" label="Native name" value={nativeName} />
+              <DataSet type="text" label="Population" value={population} />
+              <DataSet type="text" label="Region" value={region} />
+              <DataSet type="text" label="Sub region" value={subRegion} />
+              <DataSet type="text" label="Capital" value={capital} />
+              <DataSet type="text" label="Top level domain" value={topLevelDomain} />
+              <DataSet type="text" label="Currencies" value={currencies} />
+              <DataSet type="text" label="Languages" value={languages} />
             </StyledEssentialData>
-            <DataSet
-              pageType="home"
-              type="buttons"
-              label="Border countries"
-              value={borderCountries}
-            />
+            <DataSet type="buttons" label="Border countries" value={borderCountries} />
           </StyledDataWrapper>
         </StyledInner>
       </MenuBarTemplate>

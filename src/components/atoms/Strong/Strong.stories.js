@@ -1,5 +1,5 @@
 import React from 'react';
-import { withKnobs, text, select } from '@storybook/addon-knobs';
+import { withKnobs, text } from '@storybook/addon-knobs';
 import Strong from './Strong';
 
 export default {
@@ -15,20 +15,5 @@ export const normal = () => {
 
   const valueText = text(labelText, defaultValueText, groupIdText);
 
-  const labelPageType = 'Page type';
-  const optionsPageType = {
-    home: 'home',
-    details: 'details'
-  };
-  const defaultValuePageType = 'home';
-  const groupIdPageType = 'GROUP-ID1';
-
-  const valuePageType = select(
-    labelPageType,
-    optionsPageType,
-    defaultValuePageType,
-    groupIdPageType
-  );
-
-  return <Strong pageType={valuePageType}>{valueText}</Strong>;
+  return <Strong>{valueText}</Strong>;
 };

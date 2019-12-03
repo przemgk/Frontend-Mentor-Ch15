@@ -1,5 +1,5 @@
 import React from 'react';
-import { withKnobs, select, text } from '@storybook/addon-knobs';
+import { withKnobs, text } from '@storybook/addon-knobs';
 import Paragraph from './Paragraph';
 
 export default {
@@ -16,20 +16,5 @@ export const normal = () => {
 
   const valueText = text(labelText, defaultValueText, groupIdText);
 
-  const labelPageType = 'Page type';
-  const optionsPageType = {
-    home: 'home',
-    details: 'details'
-  };
-  const defaultValuePageType = 'home';
-  const groupIdPageType = 'GROUP-ID1';
-
-  const valuePageType = select(
-    labelPageType,
-    optionsPageType,
-    defaultValuePageType,
-    groupIdPageType
-  );
-
-  return <Paragraph pageType={valuePageType}>{valueText}</Paragraph>;
+  return <Paragraph>{valueText}</Paragraph>;
 };

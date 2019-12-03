@@ -18,12 +18,12 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const DataSet = ({ pageType, type, label, value }) => (
+const DataSet = ({ type, label, value }) => (
   <div>
     {type === 'text' && (
       <>
-        <Strong pageType={pageType}>{label}: </Strong>
-        <Paragraph pageType={pageType}>{value}</Paragraph>
+        <Strong>{label}: </Strong>
+        <Paragraph>{value}</Paragraph>
       </>
     )}
 
@@ -43,7 +43,6 @@ const DataSet = ({ pageType, type, label, value }) => (
 );
 
 DataSet.propTypes = {
-  pageType: PropTypes.oneOf(['home', 'details']).isRequired,
   type: PropTypes.oneOf(['text', 'buttons']).isRequired,
   label: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([

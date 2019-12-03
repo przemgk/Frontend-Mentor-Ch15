@@ -37,7 +37,7 @@ class NotFound404 extends Component {
       <ModalTemplate messageBgCode="404">
         <StyledHeading>404</StyledHeading>
         <Heading as="h2">Page not found</Heading>
-        <StyledParagraph pageType="home">
+        <StyledParagraph>
           The link you clicked may be broken or the page may have removed or renamed.
         </StyledParagraph>
         <Button onClick={this.handleRedirect} hideShadow icon={ArrowIcon}>

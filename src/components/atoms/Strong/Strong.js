@@ -1,13 +1,9 @@
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import withPageContext from 'hoc/withPageContext';
 
 const Strong = styled.strong`
-  font-size: ${({ theme, pageType }) => theme.fontSize.r[pageType]};
+  font-size: ${({ theme, pageContext }) => theme.fontSize.r[pageContext]};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
-Strong.propTypes = {
-  pageType: PropTypes.oneOf(['home', 'details']).isRequired
-};
-
-export default Strong;
+export default withPageContext(Strong);
