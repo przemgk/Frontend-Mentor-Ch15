@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { text } from '@storybook/addon-knobs';
 import FlagBox from './FlagBox';
 
 const StyledFlagWrapper = styled.div`
@@ -10,14 +10,13 @@ const StyledFlagWrapper = styled.div`
 
 export default {
   component: FlagBox,
-  title: 'Atoms/FlagBox',
-  decorators: [withKnobs]
+  title: 'Atoms/FlagBox'
 };
 
 export const normal = () => {
   const label = 'Flag image URL';
   const defaultValue = 'https://restcountries.eu/data/col.svg';
-  const groupId = 'GROUP-ID1';
+  const groupId = 'Component';
 
   const value = text(label, defaultValue, groupId);
 

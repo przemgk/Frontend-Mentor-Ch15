@@ -1,12 +1,12 @@
 import React from 'react';
-import { withKnobs, object } from '@storybook/addon-knobs';
+import { object } from '@storybook/addon-knobs';
 import StoryRouter from 'storybook-react-router';
 import Dropdown from './Dropdown';
 
 export default {
   component: Dropdown,
   title: 'Atoms/Dropdown',
-  decorators: [withKnobs, StoryRouter()]
+  decorators: [StoryRouter()]
 };
 
 export const normal = () => {
@@ -15,7 +15,7 @@ export const normal = () => {
     label: 'Filter by Region',
     options: ['africa', 'america', 'asia', 'europe', 'oceania']
   };
-  const groupIdDropdown = 'GROUP-ID1';
+  const groupIdDropdown = 'Component';
 
   const valueDropdown = object(labelDropdown, defaultValueDropdown, groupIdDropdown);
 

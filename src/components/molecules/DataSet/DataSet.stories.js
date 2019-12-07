@@ -1,23 +1,22 @@
 import React from 'react';
-import { withKnobs, text as knobsText, object } from '@storybook/addon-knobs';
+import { text as knobsText, object } from '@storybook/addon-knobs';
 import DataSet from './DataSet';
 
 export default {
   component: DataSet,
-  title: 'Molecules/DataSet',
-  decorators: [withKnobs]
+  title: 'Molecules/DataSet'
 };
 
 export const text = () => {
   const labelOfLabel = 'Label';
   const defaultValueLabel = 'Languages';
-  const groupIdLabel = 'GROUP-ID1';
+  const groupIdLabel = 'Component';
 
   const valueLabel = knobsText(labelOfLabel, defaultValueLabel, groupIdLabel);
 
   const labelValue = 'Value';
   const defaultValueOfValue = 'Dutch, French, German';
-  const groupIdValue = 'GROUP-ID1';
+  const groupIdValue = 'Component';
 
   const valueOfValue = knobsText(labelValue, defaultValueOfValue, groupIdValue);
 
@@ -27,7 +26,7 @@ export const text = () => {
 export const buttons = () => {
   const labelOfLabel = 'Label';
   const defaultValueLabel = 'Border countries';
-  const groupIdLabel = 'GROUP-ID1';
+  const groupIdLabel = 'Component';
 
   const valueLabel = knobsText(labelOfLabel, defaultValueLabel, groupIdLabel);
 
@@ -37,7 +36,7 @@ export const buttons = () => {
     { name: 'Germany', url: 'ger' },
     { name: 'Netherlands', url: 'nth' }
   ];
-  const groupIdValue = 'GROUP-ID1';
+  const groupIdValue = 'Component';
 
   const valueOfValue = object(labelValue, defaultValueOfValue, groupIdValue);
 

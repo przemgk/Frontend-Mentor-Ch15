@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { withKnobs, text, object } from '@storybook/addon-knobs';
+import { text, object } from '@storybook/addon-knobs';
 import Card from './Card';
 
 const StyledCardWrapper = styled.div`
@@ -10,20 +10,19 @@ const StyledCardWrapper = styled.div`
 
 export default {
   component: Card,
-  title: 'Molecules/Card',
-  decorators: [withKnobs]
+  title: 'Molecules/Card'
 };
 
 export const normal = () => {
   const labelTitle = 'Title';
   const defaultValueTitle = 'Germany';
-  const groupIdTitle = 'GROUP-ID1';
+  const groupIdTitle = 'Component';
 
   const valueTitle = text(labelTitle, defaultValueTitle, groupIdTitle);
 
   const labelFlagUrl = 'Flag Url';
   const defaultValueFlagUrl = 'https://restcountries.eu/data/deu.svg';
-  const groupIdFlagUrl = 'GROUP-ID1';
+  const groupIdFlagUrl = 'Component';
 
   const valueFlagUrl = text(labelFlagUrl, defaultValueFlagUrl, groupIdFlagUrl);
 
@@ -33,7 +32,7 @@ export const normal = () => {
     { label: 'Region', value: 'Europe' },
     { label: 'Capital', value: 'Berlin' }
   ];
-  const groupIdDesc = 'GROUP-ID1';
+  const groupIdDesc = 'Component';
 
   const valueDesc = object(labelDesc, defaultValueDesc, groupIdDesc);
 

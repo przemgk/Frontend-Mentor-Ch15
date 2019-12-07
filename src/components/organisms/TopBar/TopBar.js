@@ -45,10 +45,14 @@ TopBar.propTypes = {
   themeContext: PropTypes.shape({
     currentTheme: PropTypes.string.isRequired,
     handleThemeToggle: PropTypes.func.isRequired
-  }).isRequired,
+  }),
   theme: PropTypes.shape({
     icons: PropTypes.objectOf(PropTypes.string).isRequired
   }).isRequired
+};
+
+TopBar.defaultProps = {
+  themeContext: { currentTheme: '', handleThemeToggle() {} }
 };
 
 export default withTheme(withThemeContext(TopBar));
