@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import ArrowHeadIcon from 'assets/icon-arrowhead.svg';
 
 const StyledWrapper = styled.div`
   display: block;
@@ -48,7 +47,7 @@ const StyledLabel = styled.span`
     right: 24px;
     width: 8px;
     height: 8px;
-    background-image: url(${ArrowHeadIcon});
+    background-image: url(${({ theme }) => theme.icons.arrowHead});
     background-repeat: no-repeat;
     background-position: center center;
     background-size: contain;

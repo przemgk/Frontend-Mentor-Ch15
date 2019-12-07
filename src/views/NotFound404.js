@@ -3,8 +3,8 @@ import ModalTemplate from 'templates/ModalTemplate';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Button from 'components/atoms/Button/Button';
-import styled from 'styled-components';
-import ArrowIcon from 'assets/icon-arrow.svg';
+import styled, { withTheme } from 'styled-components';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { routes } from 'routes';
 
@@ -28,6 +28,9 @@ class NotFound404 extends Component {
 
   render() {
     const { redirect } = this.state;
+    const {
+      theme: { icons }
+    } = this.props;
 
     if (redirect) {
       return <Redirect to={routes.home} />;
@@ -40,7 +43,7 @@ class NotFound404 extends Component {
         <StyledParagraph>
           The link you clicked may be broken or the page may have removed or renamed.
         </StyledParagraph>
-        <Button onClick={this.handleRedirect} hideShadow icon={ArrowIcon}>
+        <Button onClick={this.handleRedirect} hideShadow icon={icons.arrow}>
           Go to home page
         </Button>
       </ModalTemplate>
@@ -48,4 +51,10 @@ class NotFound404 extends Component {
   }
 }
 
-export default NotFound404;
+NotFound404.propTypes = {
+  theme: PropTypes.shape({
+    icons: PropTypes.objectOf(PropTypes.string).isRequired
+  }).isRequired
+};
+
+export default withTheme(NotFound404);

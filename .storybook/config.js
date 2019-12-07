@@ -13,7 +13,7 @@ const StyledStorybookWrapper = styled.div`
 addDecorator(story => (
   <StyledStorybookWrapper>
     <Normalize />
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme('light')}>
       <GlobalStyles />
       {story()}
     </ThemeProvider>

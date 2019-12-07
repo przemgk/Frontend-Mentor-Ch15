@@ -1,12 +1,10 @@
-export const theme = {
-  elementBgColor: 'hsl(0, 0%, 100%)',
-  bgColor: 'hsl(0, 0%, 98%)',
-  shadowColor: 'hsl(0, 0%, 80%)',
-  fontColor: {
-    primary: 'hsl(200, 15%, 8%)',
-    secondary: 'hsl(0, 0%, 52%)',
-    tertiary: 'hsl(0, 0%, 88%)'
-  },
+import { lightTheme } from 'theme/lightTheme';
+import { darkTheme } from 'theme/darkTheme';
+
+const availableThemes = { light: lightTheme, dark: darkTheme };
+
+// Font settings for all themes
+const fontSettings = {
   fontWeight: {
     regular: 300,
     semiBold: 600,
@@ -24,14 +22,12 @@ export const theme = {
   }
 };
 
-// elements
-// background
-// input
-// text
+export const theme = themeName => {
+  const [currentTheme] = Object.keys(availableThemes).filter(key => key === themeName);
 
-// - Dark Blue (Dark Mode Elements): hsl(209, 23%, 22%)
-// - Very Dark Blue (Dark Mode Background): hsl(207, 26%, 17%)
-// - Very Dark Blue (Light Mode Text): hsl(200, 15%, 8%)
-// - Dark Gray (Light Mode Input): hsl(0, 0%, 52%)
-// - Very Light Gray (Light Mode Background): hsl(0, 0%, 98%)
-// - White (Dark Mode Text & Light Mode Elements): hsl(0, 0%, 100%)
+  if (!currentTheme) {
+    console.error("Served theme name isn't available. Check availableThemes object.");
+  }
+
+  return { ...fontSettings, ...availableThemes[currentTheme] };
+};

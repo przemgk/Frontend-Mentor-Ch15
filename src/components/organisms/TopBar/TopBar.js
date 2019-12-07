@@ -1,10 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
+import PropTypes from 'prop-types';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
-import MoonIcon from 'assets/icon-moon.svg';
 import { Link } from 'react-router-dom';
 import { routes } from 'routes';
+import withThemeContext from 'hoc/withThemeContext';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -25,15 +26,29 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const TopBar = () => (
+const TopBar = ({ themeContext: { currentTheme, handleThemeToggle }, theme: { icons } }) => (
   <StyledWrapper>
     <StyledHeading as="h1">
       <StyledLink to={routes.home}>Where in the world?</StyledLink>
     </StyledHeading>
-    <Button icon={MoonIcon} hideShadow>
+    <Button
+      onClick={() => handleThemeToggle(currentTheme === 'light' ? 'dark' : 'light')}
+      icon={icons.moon}
+      hideShadow
+    >
       Dark mode
     </Button>
   </StyledWrapper>
 );
 
-export default TopBar;
+TopBar.propTypes = {
+  themeContext: PropTypes.shape({
+    currentTheme: PropTypes.string.isRequired,
+    handleThemeToggle: PropTypes.func.isRequired
+  }).isRequired,
+  theme: PropTypes.shape({
+    icons: PropTypes.objectOf(PropTypes.string).isRequired
+  }).isRequired
+};
+
+export default withTheme(withThemeContext(TopBar));

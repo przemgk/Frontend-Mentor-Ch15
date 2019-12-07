@@ -1,14 +1,13 @@
 import React from 'react';
 import MenuBarTemplate from 'templates/MenuBarTemplate';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { routes } from 'routes';
 import Button from 'components/atoms/Button/Button';
 import FlagBox from 'components/atoms/FlagBox/FlagBox';
 import Heading from 'components/atoms/Heading/Heading';
 import DataSet from 'components/molecules/DataSet/DataSet';
-import ArrowIcon from 'assets/icon-arrow.svg';
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -53,13 +52,14 @@ const DetailsTemplate = ({
   topLevelDomain,
   currencies,
   languages,
-  borderCountries
+  borderCountries,
+  theme: { icons }
 }) => {
   return (
     <StyledWrapper>
       <MenuBarTemplate>
         <StyledBar>
-          <Button as={Link} to={routes.home} icon={ArrowIcon}>
+          <Button as={Link} to={routes.home} icon={icons.arrow}>
             Back
           </Button>
         </StyledBar>
@@ -102,7 +102,10 @@ DetailsTemplate.propTypes = {
       name: PropTypes.string.isRequired,
       url: PropTypes.string.isRequired
     })
-  ).isRequired
+  ).isRequired,
+  theme: PropTypes.shape({
+    icons: PropTypes.objectOf(PropTypes.string).isRequired
+  }).isRequired
 };
 
-export default DetailsTemplate;
+export default withTheme(DetailsTemplate);
