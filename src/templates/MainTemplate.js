@@ -7,12 +7,23 @@ import { theme } from 'theme/mainTheme';
 import { routes } from 'routes';
 import { PageContext, ThemeContext } from 'context';
 import { useLocation, matchPath } from 'react-router-dom';
+import axios from 'axios';
 
 const MainTemplate = ({ children }) => {
   const { pathname } = useLocation();
   const match = matchPath(pathname, { path: routes.countries, exact: true });
 
   const [currentTheme, handleThemeToggle] = useState('dark');
+
+  axios
+    .get('https://restcountries.eu/rest/v2/all', {
+      params: {
+        fields:
+          'name;topLevelDomain;capital;region;subregion;population;languages;currencies;nativeName;borders;alpha3Code;flag'
+      }
+    })
+    .then(response => console.log(response))
+    .catch(err => console.log(err));
 
   return (
     <PageContext.Provider value={match ? 'details' : 'home'}>
