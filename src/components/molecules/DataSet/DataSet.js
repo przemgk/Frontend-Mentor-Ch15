@@ -47,6 +47,7 @@ DataSet.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,
+    PropTypes.number,
     PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,

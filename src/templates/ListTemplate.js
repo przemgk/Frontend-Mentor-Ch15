@@ -20,7 +20,7 @@ const ListTemplate = ({ children }) => (
 );
 
 ListTemplate.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.node.isRequired
 };
 
 export default ListTemplate;
