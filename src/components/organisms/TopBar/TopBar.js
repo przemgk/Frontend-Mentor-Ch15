@@ -26,16 +26,12 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const TopBar = ({ themeContext: { currentTheme, handleThemeToggle }, theme: { icons } }) => (
+const TopBar = ({ themeContext: { handleThemeToggle }, theme: { icons } }) => (
   <StyledWrapper>
     <StyledHeading as="h1">
       <StyledLink to={routes.home}>Where in the world?</StyledLink>
     </StyledHeading>
-    <Button
-      onClick={() => handleThemeToggle(currentTheme === 'light' ? 'dark' : 'light')}
-      icon={icons.moon}
-      hideShadow
-    >
+    <Button onClick={handleThemeToggle} icon={icons.moon} hideShadow>
       Dark mode
     </Button>
   </StyledWrapper>
@@ -43,7 +39,6 @@ const TopBar = ({ themeContext: { currentTheme, handleThemeToggle }, theme: { ic
 
 TopBar.propTypes = {
   themeContext: PropTypes.shape({
-    currentTheme: PropTypes.string.isRequired,
     handleThemeToggle: PropTypes.func.isRequired
   }),
   theme: PropTypes.shape({
@@ -52,7 +47,7 @@ TopBar.propTypes = {
 };
 
 TopBar.defaultProps = {
-  themeContext: { currentTheme: '', handleThemeToggle() {} }
+  themeContext: { handleThemeToggle() {} }
 };
 
 export default withTheme(withThemeContext(TopBar));

@@ -1,15 +1,9 @@
 import React from 'react';
 import ListTemplate from 'templates/ListTemplate';
-import { useLocation } from 'react-router-dom';
+import withDataContext from 'hoc/withDataContext';
 
 const Home = () => {
-  const { pathname } = useLocation();
-
-  return (
-    <ListTemplate>
-      <p>Jesteś na stronie {pathname.substr(1)}</p>
-    </ListTemplate>
-  );
+  return <ListTemplate>{}</ListTemplate>;
 };
 
-export default Home;
+export default withDataContext(Home);
