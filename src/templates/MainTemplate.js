@@ -28,7 +28,9 @@ class MainTemplate extends Component {
         }
       })
       .then(({ data }) => {
-        this.setState({ data });
+        this.setState({
+          data
+        });
       })
       .catch(err => console.log(err));
   }

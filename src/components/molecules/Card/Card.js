@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import FlagBox from 'components/atoms/FlagBox/FlagBox';
 import Heading from 'components/atoms/Heading/Heading';
 import DataSet from 'components/molecules/DataSet/DataSet';
 import PropTypes from 'prop-types';
+import { Redirect, generatePath } from 'react-router-dom';
+import { routes } from 'routes';
 
 const StyledWrapper = styled.div`
   display: grid;
@@ -50,21 +52,41 @@ const StyledDataGrid = styled.div`
   grid-gap: 8px;
 `;
 
-const Card = ({ title, desc, flagUrl }) => (
-  <StyledWrapper>
-    <StyledFlagBox url={flagUrl} />
-    <StyledContentWrapper>
-      <StyledHeading as="h3" small>
-        {title}
-      </StyledHeading>
-      <StyledDataGrid>
-        {desc.map(({ label, value }) => (
-          <DataSet type="text" label={label} value={value} key={label} />
-        ))}
-      </StyledDataGrid>
-    </StyledContentWrapper>
-  </StyledWrapper>
-);
+class Card extends Component {
+  state = { redirect: false };
+
+  handleRedirect = () => this.setState({ redirect: true });
+
+  render() {
+    const { redirect } = this.state;
+    const { title, desc, flagUrl } = this.props;
+
+    // albo zmienic na nazwe tylko konwertowac na adrsy noralne
+    const detailsPath = generatePath(routes.countries, {
+      id: encodeURI(title).toLowerCase()
+    });
+
+    if (redirect) {
+      return <Redirect to={detailsPath} />;
+    }
+
+    return (
+      <StyledWrapper onClick={this.handleRedirect}>
+        <StyledFlagBox url={flagUrl} />
+        <StyledContentWrapper>
+          <StyledHeading as="h3" small>
+            {title}
+          </StyledHeading>
+          <StyledDataGrid>
+            {desc.map(({ label, value }) => (
+              <DataSet type="text" label={label} value={value || 'Lack of data'} key={label} />
+            ))}
+          </StyledDataGrid>
+        </StyledContentWrapper>
+      </StyledWrapper>
+    );
+  }
+}
 
 Card.propTypes = {
   title: PropTypes.string.isRequired,
