@@ -1,30 +1,48 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ListTemplate from 'templates/ListTemplate';
-import withDataContext from 'hoc/withDataContext';
 import Card from 'components/molecules/Card/Card';
-import PropTypes from 'prop-types';
+import axios from 'axios';
 
-const Home = ({ dataContext }) => {
-  return (
-    <ListTemplate>
-      {dataContext.map(({ name, population, region, capital, flag }) => (
-        <Card
-          key={name}
-          title={name}
-          desc={[
-            { label: 'Population', value: population },
-            { label: 'Region', value: region },
-            { label: 'Capital', value: capital }
-          ]}
-          flagUrl={flag}
-        />
-      ))}
-    </ListTemplate>
-  );
-};
+class Home extends Component {
+  state = {
+    data: []
+  };
 
-Home.propTypes = {
-  dataContext: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
-};
+  componentDidMount() {
+    axios
+      .get('https://restcountries.eu/rest/v2/all', {
+        params: {
+          fields: 'name;capital;region;population;flag'
+        }
+      })
+      .then(({ data }) => {
+        this.setState({
+          data
+        });
+      })
+      .catch(err => console.log(err));
+  }
 
-export default withDataContext(Home);
+  render() {
+    const { data } = this.state;
+
+    return (
+      <ListTemplate>
+        {data.map(({ name, population, region, capital, flag }) => (
+          <Card
+            key={name}
+            title={name}
+            desc={[
+              { label: 'Population', value: population },
+              { label: 'Region', value: region },
+              { label: 'Capital', value: capital }
+            ]}
+            flagUrl={flag}
+          />
+        ))}
+      </ListTemplate>
+    );
+  }
+}
+
+export default Home;

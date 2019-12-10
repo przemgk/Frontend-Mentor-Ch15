@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import DetailsTemplate from 'templates/DetailsTemplate';
-import withDataContext from 'hoc/withDataContext';
 import { matchPath } from 'react-router-dom';
 import { routes } from 'routes';
 import { withRouter } from 'react-router';
@@ -49,4 +48,4 @@ Details.propTypes = {
   }).isRequired
 };
 
-export default withRouter(withDataContext(Details));
+export default withRouter(Details);

@@ -7,32 +7,16 @@ import { theme } from 'theme/mainTheme';
 import { routes } from 'routes';
 import { withRouter } from 'react-router';
 import { matchPath } from 'react-router-dom';
-import { PageContext, ThemeContext, DataContext } from 'context';
-import axios from 'axios';
+import { PageContext, ThemeContext } from 'context';
 
 class MainTemplate extends Component {
   state = {
     pageType: 'home',
-    currentTheme: 'light',
-    data: []
+    currentTheme: 'light'
   };
 
   componentDidMount() {
     this.setPageType();
-
-    axios
-      .get('https://restcountries.eu/rest/v2/all', {
-        params: {
-          fields:
-            'name;topLevelDomain;capital;region;subregion;population;languages;currencies;nativeName;borders;alpha3Code;flag'
-        }
-      })
-      .then(({ data }) => {
-        this.setState({
-          data
-        });
-      })
-      .catch(err => console.log(err));
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -61,18 +45,16 @@ class MainTemplate extends Component {
 
   render() {
     const { children } = this.props;
-    const { currentTheme, pageType, data } = this.state;
+    const { currentTheme, pageType } = this.state;
 
     return (
       <PageContext.Provider value={pageType}>
         <ThemeContext.Provider value={{ handleThemeToggle: this.handleThemeToggle }}>
-          <DataContext.Provider value={data}>
-            <Normalize />
-            <ThemeProvider theme={theme(`${currentTheme}`)}>
-              <GlobalStyles />
-              {children}
-            </ThemeProvider>
-          </DataContext.Provider>
+          <Normalize />
+          <ThemeProvider theme={theme(`${currentTheme}`)}>
+            <GlobalStyles />
+            {children}
+          </ThemeProvider>
         </ThemeContext.Provider>
       </PageContext.Provider>
     );
