@@ -9,12 +9,6 @@ import FlagBox from 'components/atoms/FlagBox/FlagBox';
 import Heading from 'components/atoms/Heading/Heading';
 import DataSet from 'components/molecules/DataSet/DataSet';
 
-const StyledWrapper = styled.div`
-  width: 100%;
-  min-height: 100vh;
-  background-color: ${({ theme }) => theme.elementBgColor};
-`;
-
 const StyledBar = styled.div`
   width: 100%;
   padding: 40px 10% 72px;
@@ -58,34 +52,32 @@ const DetailsTemplate = ({
   theme: { icons }
 }) => {
   return (
-    <StyledWrapper>
-      <MenuBarTemplate>
-        <StyledBar>
-          <Button as={Link} to={routes.home} icon={icons.arrow}>
-            Back
-          </Button>
-        </StyledBar>
-        <StyledInner>
-          <FlagBox url={url} />
-          <StyledDataWrapper>
-            <Heading as="h2" large>
-              {name}
-            </Heading>
-            <StyledEssentialData>
-              <DataSet type="text" label="Native name" value={nativeName} />
-              <DataSet type="text" label="Population" value={population} />
-              <DataSet type="text" label="Region" value={region} />
-              <DataSet type="text" label="Sub region" value={subRegion} />
-              <DataSet type="text" label="Capital" value={capital} />
-              <DataSet type="text" label="Top level domain" value={topLevelDomain} />
-              <DataSet type="text" label="Currencies" value={currencies} />
-              <DataSet type="text" label="Languages" value={languages} />
-            </StyledEssentialData>
-            <DataSet type="buttons" label="Border countries" value={borderCountries} />
-          </StyledDataWrapper>
-        </StyledInner>
-      </MenuBarTemplate>
-    </StyledWrapper>
+    <MenuBarTemplate>
+      <StyledBar>
+        <Button as={Link} to={routes.home} icon={icons.arrow}>
+          Back
+        </Button>
+      </StyledBar>
+      <StyledInner>
+        <FlagBox url={url} />
+        <StyledDataWrapper>
+          <Heading as="h2" large>
+            {name}
+          </Heading>
+          <StyledEssentialData>
+            <DataSet type="text" label="Native name" value={nativeName} />
+            <DataSet type="text" label="Population" value={population} />
+            <DataSet type="text" label="Region" value={region} />
+            <DataSet type="text" label="Sub region" value={subRegion} />
+            <DataSet type="text" label="Capital" value={capital} />
+            <DataSet type="text" label="Top level domain" value={topLevelDomain} />
+            <DataSet type="text" label="Currencies" value={currencies} />
+            <DataSet type="text" label="Languages" value={languages} />
+          </StyledEssentialData>
+          <DataSet type="buttons" label="Border countries" value={borderCountries} />
+        </StyledDataWrapper>
+      </StyledInner>
+    </MenuBarTemplate>
   );
 };
 

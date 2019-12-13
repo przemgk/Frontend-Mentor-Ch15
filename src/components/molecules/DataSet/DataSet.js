@@ -25,11 +25,18 @@ class DataSet extends Component {
   handleRedirect = url => this.setState({ redirect: true, url });
 
   render() {
-    const { type, label, value } = this.props;
+    const { type, label } = this.props;
+    let { value } = this.props;
     const { redirect, url } = this.state;
 
     if (redirect) {
       return <Redirect to={url} />;
+    }
+
+    if (!value) {
+      value = 'Unidentified';
+    } else if (typeof value === 'number') {
+      value = value.toLocaleString('en-US', { useGrouping: true });
     }
 
     if (type === 'text') {
@@ -46,11 +53,15 @@ class DataSet extends Component {
         <StyledHeading as="h3" small>
           {`${label}: `}
         </StyledHeading>
-        {value.map(({ name, url: countryUrl }) => (
-          <StyledButton small onClick={() => this.handleRedirect(countryUrl)} key={name}>
-            {name}
-          </StyledButton>
-        ))}
+        {value.length > 0 ? (
+          value.map(({ name, url: countryUrl }) => (
+            <StyledButton small onClick={() => this.handleRedirect(countryUrl)} key={name}>
+              {name}
+            </StyledButton>
+          ))
+        ) : (
+          <Paragraph>Does not border with any country</Paragraph>
+        )}
       </div>
     );
   }

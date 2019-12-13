@@ -17,7 +17,7 @@ const StyledLabel = styled.span`
   box-shadow: 0 0 8px -3px ${({ theme }) => theme.shadowColor};
   background-color: ${({ theme }) => theme.elementBgColor};
   cursor: pointer;
-  z-index: 2;
+  z-index: 101;
 
   &::first-letter {
     text-transform: uppercase;
@@ -70,6 +70,7 @@ const StyledList = styled.ul`
   border-radius: 6px;
   box-shadow: 0 0 8px -3px ${({ theme }) => theme.shadowColor};
   background-color: ${({ theme }) => theme.elementBgColor};
+  z-index: 100;
   transform: scaleY(0);
   transform-origin: top center;
   opacity: 0;

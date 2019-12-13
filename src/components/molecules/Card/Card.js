@@ -10,10 +10,11 @@ import { routes } from 'routes';
 const StyledWrapper = styled.div`
   display: grid;
   position: relative;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: 9fr 11fr;
   border-radius: 6px;
   box-shadow: 0 4px 12px -4px ${({ theme }) => theme.shadowColor};
   cursor: pointer;
+  background-color: ${({ theme }) => theme.elementBgColor};
 
   &:hover::after {
     opacity: 1;
@@ -34,7 +35,7 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledContentWrapper = styled.div`
-  padding: 24px 24px 32px;
+  padding: 24px 24px 48px;
 `;
 
 const StyledFlagBox = styled(FlagBox)`
@@ -78,7 +79,7 @@ class Card extends Component {
           </StyledHeading>
           <StyledDataGrid>
             {desc.map(({ label, value }) => (
-              <DataSet type="text" label={label} value={value || 'Lack of data'} key={label} />
+              <DataSet type="text" label={label} value={value} key={label} />
             ))}
           </StyledDataGrid>
         </StyledContentWrapper>

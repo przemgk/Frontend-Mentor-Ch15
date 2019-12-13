@@ -7,6 +7,8 @@ const FlagBox = styled.div.attrs(({ url }) => ({
 }))`
   width: 100%;
   height: 100%;
+  max-width: 560px;
+  max-height: 400px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
