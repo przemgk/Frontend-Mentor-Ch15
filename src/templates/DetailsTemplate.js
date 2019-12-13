@@ -93,7 +93,7 @@ const StyledEssentialData = styled.div`
     grid-template-columns: repeat(2, 1fr);
     grid-auto-flow: column;
     grid-gap: 6px 24px;
-    margin: 12px 0 32px;
+    margin: 24px 0 48px;
 
     ${StyledDataSet} {
       &:nth-of-type(6n) {
