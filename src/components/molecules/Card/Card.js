@@ -61,7 +61,6 @@ class Card extends Component {
     const { redirect } = this.state;
     const { title, desc, flagUrl } = this.props;
 
-    // albo zmienic na nazwe tylko konwertowac na adrsy noralne
     const detailsPath = generatePath(routes.countries, {
       id: encodeURI(title).toLowerCase()
     });

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import Strong from 'components/atoms/Strong/Strong';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 const StyledHeading = styled(Heading)`
   margin-bottom: 16px;
@@ -18,29 +19,42 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const DataSet = ({ type, label, value }) => (
-  <div>
-    {type === 'text' && (
-      <>
-        <Strong>{label}: </Strong>
-        <Paragraph>{value}</Paragraph>
-      </>
-    )}
+class DataSet extends Component {
+  state = { redirect: false, url: '' };
 
-    {type === 'buttons' && (
-      <>
+  handleRedirect = url => this.setState({ redirect: true, url });
+
+  render() {
+    const { type, label, value } = this.props;
+    const { redirect, url } = this.state;
+
+    if (redirect) {
+      return <Redirect to={url} />;
+    }
+
+    if (type === 'text') {
+      return (
+        <div>
+          <Strong>{label}: </Strong>
+          <Paragraph>{value}</Paragraph>
+        </div>
+      );
+    }
+
+    return (
+      <div>
         <StyledHeading as="h3" small>
           {`${label}: `}
         </StyledHeading>
-        {value.map(item => (
-          <StyledButton small key={item.name}>
-            {item.name}
+        {value.map(({ name, url: countryUrl }) => (
+          <StyledButton small onClick={() => this.handleRedirect(countryUrl)} key={name}>
+            {name}
           </StyledButton>
         ))}
-      </>
-    )}
-  </div>
-);
+      </div>
+    );
+  }
+}
 
 DataSet.propTypes = {
   type: PropTypes.oneOf(['text', 'buttons']).isRequired,

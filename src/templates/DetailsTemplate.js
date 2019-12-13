@@ -23,7 +23,7 @@ const StyledBar = styled.div`
 const StyledInner = styled.div`
   width: 100%;
   min-height: 320px;
-  padding: 0 10%;
+  padding: 0 10% 120px;
   display: grid;
   grid-gap: 120px;
   grid-template-columns: 1fr 1fr;
@@ -39,11 +39,13 @@ const StyledEssentialData = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 6px 24px;
   grid-auto-flow: column;
+  align-items: center;
   margin: 32px 0 56px;
 `;
 
 const DetailsTemplate = ({
   url,
+  name,
   nativeName,
   population,
   region,
@@ -67,7 +69,7 @@ const DetailsTemplate = ({
           <FlagBox url={url} />
           <StyledDataWrapper>
             <Heading as="h2" large>
-              Belgium
+              {name}
             </Heading>
             <StyledEssentialData>
               <DataSet type="text" label="Native name" value={nativeName} />
@@ -89,8 +91,9 @@ const DetailsTemplate = ({
 
 DetailsTemplate.propTypes = {
   url: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   nativeName: PropTypes.string.isRequired,
-  population: PropTypes.string.isRequired,
+  population: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   region: PropTypes.string.isRequired,
   subRegion: PropTypes.string.isRequired,
   capital: PropTypes.string.isRequired,

@@ -1,14 +1,36 @@
 import React, { Component } from 'react';
 import DetailsTemplate from 'templates/DetailsTemplate';
-import { matchPath } from 'react-router-dom';
+import { matchPath, generatePath } from 'react-router-dom';
 import { routes } from 'routes';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 class Details extends Component {
-  state = {};
+  state = {
+    data: {},
+    borderCountries: [],
+    currentCountry: '',
+    isLoading: true
+  };
 
   componentDidMount() {
+    this.getCountryData();
+  }
+
+  componentDidUpdate() {
+    const { currentCountry, isLoading } = this.state;
+
+    if (currentCountry !== this.getCurrentCountry()) {
+      this.getCountryData();
+    }
+
+    if (isLoading) {
+      this.getBorderCountriesNames();
+    }
+  }
+
+  getCurrentCountry = () => {
     const {
       location: { pathname }
     } = this.props;
@@ -17,28 +39,99 @@ class Details extends Component {
       params: { id }
     } = matchPath(pathname, { path: routes.countries, exact: true });
 
-    console.log(id);
-  }
+    return decodeURI(id);
+  };
+
+  getCountryData = () => {
+    const currentCountry = this.getCurrentCountry();
+
+    axios
+      .get(`https://restcountries.eu/rest/v2/name/${currentCountry}`, {
+        params: {
+          fullText: true,
+          fields:
+            'name;capital;region;population;flag;subregion;nativeName;topLevelDomain;languages;currencies;borders'
+        }
+      })
+      .then(({ data: [countryData] }) =>
+        this.setState({
+          data: countryData,
+          currentCountry,
+          isLoading: true
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
+  getBorderCountriesNames = () => {
+    const {
+      data: { borders }
+    } = this.state;
+
+    const borderCountries = [];
+
+    if (borders.length === 0) {
+      this.setState({ isLoading: false });
+    }
+
+    borders.map(item =>
+      axios
+        .get(`https://restcountries.eu/rest/v2/alpha/${item.toLowerCase()}`, {
+          params: { fields: 'name' }
+        })
+        .then(({ data: { name: borderCountryName } }) => {
+          const path = generatePath(routes.countries, {
+            id: encodeURI(borderCountryName).toLowerCase()
+          });
+
+          borderCountries.push({ name: borderCountryName, url: path });
+
+          if (borders.length === borderCountries.length) {
+            this.setState({
+              borderCountries,
+              isLoading: false
+            });
+          }
+        })
+        .catch(err => console.log(err))
+    );
+  };
 
   render() {
-    return (
-      <DetailsTemplate
-        url="https://restcountries.eu/data/col.svg"
-        nativeName="Belgium"
-        population="12,121,123"
-        region="as"
-        subRegion="West-Europe"
-        capital="as"
-        topLevelDomain="bl"
-        currencies="euro"
-        languages="English"
-        borderCountries={[
-          { name: 'France', url: 'fr' },
-          { name: 'Germany', url: 'deu' },
-          { name: 'Netherlands', url: 'nth' }
-        ]}
-      />
-    );
+    const { data, borderCountries, isLoading } = this.state;
+
+    if (!isLoading) {
+      const {
+        flag,
+        name,
+        population,
+        region,
+        capital,
+        subregion,
+        nativeName,
+        topLevelDomain,
+        languages,
+        currencies
+      } = data;
+
+      return (
+        <DetailsTemplate
+          url={flag}
+          name={name}
+          nativeName={nativeName}
+          population={population}
+          region={region}
+          subRegion={subregion}
+          capital={capital}
+          topLevelDomain={topLevelDomain.join(', ')}
+          currencies={currencies.map(({ name: currencyName }) => currencyName).join(', ')}
+          languages={languages.map(({ name: languageName }) => languageName).join(', ')}
+          borderCountries={borderCountries.map(item => item)}
+        />
+      );
+    }
+
+    return <div>Loading</div>;
   }
 }
 
