@@ -11,12 +11,16 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 35vw;
+  width: 85vw;
   min-height: 50vh;
   padding: 40px;
   border-radius: 6px;
   box-shadow: 0 0 8px -3px ${({ theme }) => theme.shadowColor};
   background-color: ${({ theme }) => theme.elementBgColor};
+
+  @media screen and (min-width: 768px) {
+    width: 35vw;
+  }
 `;
 
 const ModalTemplate = ({ children }) => <StyledWrapper>{children}</StyledWrapper>;
