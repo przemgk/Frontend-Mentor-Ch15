@@ -11,7 +11,7 @@ const StyledWrapper = styled.div`
   justify-content: space-between;
   padding: 40px 24px 64px;
 
-  @media screen and(min-width: 768px) {
+  @media screen and (min-width: 768px) {
     padding: 40px 10%;
     flex-direction: row;
     align-items: center;

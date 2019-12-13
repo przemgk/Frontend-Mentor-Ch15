@@ -8,9 +8,10 @@ import { Redirect, generatePath } from 'react-router-dom';
 import { routes } from 'routes';
 
 const StyledWrapper = styled.div`
-  display: grid;
+  display: flex;
   position: relative;
-  grid-template-rows: 9fr 11fr;
+  /* grid-template-rows: minmax(40vw, 9fr) 11fr; */
+  flex-direction: column;
   border-radius: 6px;
   box-shadow: 0 4px 12px -4px ${({ theme }) => theme.shadowColor};
   cursor: pointer;
@@ -40,6 +41,8 @@ const StyledContentWrapper = styled.div`
 
 const StyledFlagBox = styled(FlagBox)`
   border-radius: 6px 6px 0 0;
+  max-width: unset;
+  max-height: unset;
 `;
 
 const StyledHeading = styled(Heading)`

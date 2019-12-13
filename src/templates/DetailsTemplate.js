@@ -7,34 +7,100 @@ import { routes } from 'routes';
 import Button from 'components/atoms/Button/Button';
 import FlagBox from 'components/atoms/FlagBox/FlagBox';
 import Heading from 'components/atoms/Heading/Heading';
-import DataSet from 'components/molecules/DataSet/DataSet';
+import DataSet, { StyledDataSet } from 'components/molecules/DataSet/DataSet';
 
 const StyledBar = styled.div`
   width: 100%;
-  padding: 40px 10% 72px;
+  padding: 40px 24px 64px;
+
+  @media screen and (min-width: 768px) {
+    padding: 40px 10% 64px;
+  }
 `;
 
 const StyledInner = styled.div`
   width: 100%;
-  min-height: 320px;
-  padding: 0 10% 120px;
+  padding: 0 24px 120px;
   display: grid;
-  grid-gap: 120px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 60vw 1fr;
+  grid-gap: 56px;
+
+  @media screen and (min-width: 768px) {
+    grid-template-rows: 300px 1fr;
+    padding: 0 10% 120px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    grid-gap: 64px;
+    grid-template-rows: unset;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media screen and (min-width: 1366px) {
+    grid-gap: 120px;
+    grid-template-rows: unset;
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 const StyledDataWrapper = styled.div`
-  padding: 40px 0;
+  @media screen and (min-width: 1280px) {
+    padding: 40px 0;
+  }
 `;
 
 const StyledEssentialData = styled.div`
   display: grid;
-  grid-template-rows: repeat(5, 1fr);
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 6px 24px;
-  grid-auto-flow: column;
+  grid-gap: 16px 0;
+  grid-auto-flow: row;
   align-items: center;
-  margin: 32px 0 56px;
+  margin: 24px 0 64px;
+
+  ${StyledDataSet} {
+    &:nth-of-type(6n) {
+      margin-top: 24px;
+    }
+  }
+
+  @media screen and (min-width: 660px) {
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 12px 32px;
+    grid-auto-flow: column;
+
+    ${StyledDataSet} {
+      &:nth-of-type(6n) {
+        margin-top: 0;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    grid-gap: 16px 0;
+    grid-auto-flow: row;
+    grid-template-rows: unset;
+    grid-template-columns: unset;
+
+    ${StyledDataSet} {
+      &:nth-of-type(6n) {
+        margin-top: 24px;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-flow: column;
+    grid-gap: 6px 24px;
+    margin: 12px 0 32px;
+
+    ${StyledDataSet} {
+      &:nth-of-type(6n) {
+        margin-top: 0;
+      }
+    }
+  }
 `;
 
 const DetailsTemplate = ({
