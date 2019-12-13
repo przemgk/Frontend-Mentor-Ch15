@@ -7,9 +7,13 @@ import FilterBar from 'components/organisms/FilterBar/FilterBar';
 const StyledGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-gap: 64px;
+  grid-gap: 40px;
   width: 100%;
   padding: 0 10%;
+
+  @media screen and (min-width: 768px) {
+    grid-gap: 64px;
+  }
 `;
 
 const ListTemplate = ({ children }) => (

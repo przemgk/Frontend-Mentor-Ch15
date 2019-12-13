@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 const Button = styled.button`
   display: inline-block;
   position: relative;
-  padding: 12px 24px;
+  padding: 12px 16px;
   border: 0;
   border-radius: 6px;
   font-weight: ${({ theme }) => theme.fontWeight.regular};
@@ -12,6 +12,10 @@ const Button = styled.button`
   background-color: ${({ theme }) => theme.elementBgColor};
   box-shadow: 0 0 12px -4px ${({ theme }) => theme.shadowColor};
   cursor: pointer;
+
+  @media screen and (min-width: 768px) {
+    padding: 12px 24px;
+  }
 
   &:hover::after {
     opacity: 1;
@@ -33,11 +37,15 @@ const Button = styled.button`
   ${({ small }) =>
     small &&
     css`
-      padding: 8px 16px;
+      padding: 8px 12px;
       box-shadow: 0 0 8px -3px ${({ theme }) => theme.shadowColor};
 
       &::after {
         box-shadow: inset 0 0 0 2px ${({ theme }) => theme.shadowColor};
+      }
+
+      @media screen and (min-width: 768px) {
+        padding: 8px 16px;
       }
     `}
 
@@ -68,11 +76,16 @@ const Button = styled.button`
   ${({ icon }) =>
     icon &&
     css`
-      padding: 12px 24px 12px 52px;
+      padding: 12px 16px 12px 48px;
       background-image: url(${icon});
       background-size: 16px auto;
       background-repeat: no-repeat;
-      background-position: 24px 50%;
+      background-position: 16px 50%;
+
+      @media screen and (min-width: 768px) {
+        padding: 12px 24px 12px 52px;
+        background-position: 24px 50%;
+      }
     `}
 `;
 
