@@ -18,7 +18,19 @@ const StyledWrapper = styled.div`
   box-shadow: 0 0 8px -3px ${({ theme }) => theme.shadowColor};
   background-color: ${({ theme }) => theme.elementBgColor};
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 600px) {
+    width: 60vw;
+  }
+
+  @media screen and (min-width: 800px) {
+    width: 50vw;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 40vw;
+  }
+
+  @media screen and (min-width: 1366px) {
     width: 35vw;
   }
 `;

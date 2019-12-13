@@ -104,7 +104,7 @@ const StyledEssentialData = styled.div`
 `;
 
 const DetailsTemplate = ({
-  url,
+  flagUrl,
   name,
   nativeName,
   population,
@@ -125,7 +125,7 @@ const DetailsTemplate = ({
         </Button>
       </StyledBar>
       <StyledInner>
-        <FlagBox url={url} />
+        <FlagBox url={flagUrl} />
         <StyledDataWrapper>
           <Heading as="h2" large>
             {name}
@@ -148,7 +148,7 @@ const DetailsTemplate = ({
 };
 
 DetailsTemplate.propTypes = {
-  url: PropTypes.string.isRequired,
+  flagUrl: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   nativeName: PropTypes.string.isRequired,
   population: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,

@@ -20,7 +20,11 @@ const StyledParagraph = styled(Paragraph)`
   margin: 12px 0 64px;
   text-align: center;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 800px) {
+    width: 80%;
+  }
+
+  @media screen and (min-width: 1024px) {
     width: 60%;
   }
 `;

@@ -19,8 +19,10 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledSearchInput = styled(SearchInput)`
-  @media screen and (max-width: 768px) {
-    margin-bottom: 24px;
+  margin-bottom: 24px;
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 0;
   }
 `;
 

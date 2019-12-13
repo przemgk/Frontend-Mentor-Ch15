@@ -9,9 +9,8 @@ import { routes } from 'routes';
 
 const StyledWrapper = styled.div`
   display: flex;
-  position: relative;
-  /* grid-template-rows: minmax(40vw, 9fr) 11fr; */
   flex-direction: column;
+  position: relative;
   border-radius: 6px;
   box-shadow: 0 4px 12px -4px ${({ theme }) => theme.shadowColor};
   cursor: pointer;
@@ -41,8 +40,17 @@ const StyledContentWrapper = styled.div`
 
 const StyledFlagBox = styled(FlagBox)`
   border-radius: 6px 6px 0 0;
+  height: 200px;
   max-width: unset;
   max-height: unset;
+
+  @media screen and (min-width: 420px) and (max-width: 559px) {
+    height: 250px;
+  }
+
+  @media screen and (min-width: 560px) and (max-width: 649px) {
+    height: 280px;
+  }
 `;
 
 const StyledHeading = styled(Heading)`
