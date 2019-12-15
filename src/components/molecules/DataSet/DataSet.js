@@ -7,8 +7,10 @@ import Button from 'components/atoms/Button/Button';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
+export const StyledDataSet = styled.div``;
+
 const StyledHeading = styled(Heading)`
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 `;
 
 const StyledButton = styled(Button)`
@@ -41,15 +43,15 @@ class DataSet extends Component {
 
     if (type === 'text') {
       return (
-        <div>
+        <StyledDataSet>
           <Strong>{label}: </Strong>
           <Paragraph>{value}</Paragraph>
-        </div>
+        </StyledDataSet>
       );
     }
 
     return (
-      <div>
+      <StyledDataSet>
         <StyledHeading as="h3" small>
           {`${label}: `}
         </StyledHeading>
@@ -62,7 +64,7 @@ class DataSet extends Component {
         ) : (
           <Paragraph>Does not border with any country</Paragraph>
         )}
-      </div>
+      </StyledDataSet>
     );
   }
 }

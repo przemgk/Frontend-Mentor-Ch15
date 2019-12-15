@@ -16,9 +16,17 @@ const StyledHeading = styled(Heading)`
 `;
 
 const StyledParagraph = styled(Paragraph)`
-  width: 60%;
+  width: 100%;
   margin: 12px 0 64px;
   text-align: center;
+
+  @media screen and (min-width: 800px) {
+    width: 80%;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 60%;
+  }
 `;
 
 class NotFound404 extends Component {

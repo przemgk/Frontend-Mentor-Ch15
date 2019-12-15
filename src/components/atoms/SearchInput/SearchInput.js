@@ -23,6 +23,10 @@ const SearchInput = styled.input.attrs(() => ({
   &::placeholder {
     color: ${({ theme }) => theme.fontColor.tertiary};
   }
+
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    max-width: 350px;
+  }
 `;
 
 export default SearchInput;

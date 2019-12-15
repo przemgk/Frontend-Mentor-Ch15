@@ -116,7 +116,7 @@ class Details extends Component {
 
       return (
         <DetailsTemplate
-          url={flag}
+          flagUrl={flag}
           name={name}
           nativeName={nativeName}
           population={population}

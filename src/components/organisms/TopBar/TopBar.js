@@ -12,13 +12,21 @@ const StyledWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 24px 10%;
+  padding: 24px;
   box-shadow: 0 2px 8px -3px ${({ theme }) => theme.shadowColor};
   background-color: ${({ theme }) => theme.elementBgColor};
+
+  @media screen and (min-width: 768px) {
+    padding: 24px 10%;
+  }
 `;
 
 const StyledHeading = styled(Heading)`
-  font-size: ${({ theme }) => theme.fontSize.m};
+  font-size: ${({ theme }) => theme.fontSize.r.details};
+
+  @media only screen and (min-width: 768px) {
+    font-size: ${({ theme }) => theme.fontSize.m};
+  }
 `;
 
 const StyledLink = styled(Link)`
