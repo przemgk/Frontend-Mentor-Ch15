@@ -5,7 +5,8 @@ import axios from 'axios';
 
 class Home extends Component {
   state = {
-    data: []
+    data: [],
+    isLoading: true
   };
 
   componentDidMount() {
@@ -17,29 +18,38 @@ class Home extends Component {
       })
       .then(({ data }) => {
         this.setState({
-          data
+          data,
+          isLoading: false
         });
       })
       .catch(err => console.log(err));
   }
 
   render() {
-    const { data } = this.state;
+    const { data, isLoading } = this.state;
+
+    if (!isLoading) {
+      return (
+        <ListTemplate>
+          {data.map(({ name, population, region, capital, flag }) => (
+            <Card
+              key={name}
+              title={name}
+              desc={[
+                { label: 'Population', value: population },
+                { label: 'Region', value: region },
+                { label: 'Capital', value: capital }
+              ]}
+              flagUrl={flag}
+            />
+          ))}
+        </ListTemplate>
+      );
+    }
 
     return (
       <ListTemplate>
-        {data.map(({ name, population, region, capital, flag }) => (
-          <Card
-            key={name}
-            title={name}
-            desc={[
-              { label: 'Population', value: population },
-              { label: 'Region', value: region },
-              { label: 'Capital', value: capital }
-            ]}
-            flagUrl={flag}
-          />
-        ))}
+        <div>Loading</div>
       </ListTemplate>
     );
   }

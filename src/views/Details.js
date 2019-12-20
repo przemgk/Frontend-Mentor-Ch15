@@ -5,6 +5,7 @@ import { routes } from 'routes';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import MenuBarTemplate from 'templates/MenuBarTemplate';
 
 class Details extends Component {
   state = {
@@ -131,7 +132,11 @@ class Details extends Component {
       );
     }
 
-    return <div>Loading</div>;
+    return (
+      <MenuBarTemplate>
+        <div>Loading</div>
+      </MenuBarTemplate>
+    );
   }
 }
 
