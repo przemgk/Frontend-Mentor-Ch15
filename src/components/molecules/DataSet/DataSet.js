@@ -27,7 +27,7 @@ class DataSet extends Component {
   handleRedirect = url => this.setState({ redirect: true, url });
 
   render() {
-    const { type, label } = this.props;
+    const { type, label, nullMessage } = this.props;
     let { value } = this.props;
     const { redirect, url } = this.state;
 
@@ -62,7 +62,7 @@ class DataSet extends Component {
             </StyledButton>
           ))
         ) : (
-          <Paragraph>Does not border with any country</Paragraph>
+          <Paragraph>{nullMessage}</Paragraph>
         )}
       </StyledDataSet>
     );
@@ -72,6 +72,7 @@ class DataSet extends Component {
 DataSet.propTypes = {
   type: PropTypes.oneOf(['text', 'buttons']).isRequired,
   label: PropTypes.string.isRequired,
+  nullMessage: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

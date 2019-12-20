@@ -30,6 +30,12 @@ export const buttons = () => {
 
   const valueLabel = knobsText(labelOfLabel, defaultValueLabel, groupIdLabel);
 
+  const labelNullMessage = 'Null message';
+  const defaultValueNullMessage = 'No data';
+  const groupIdNullMessage = 'Component';
+
+  const valueNullMessage = knobsText(labelNullMessage, defaultValueNullMessage, groupIdNullMessage);
+
   const labelValue = 'Value';
   const defaultValueOfValue = [
     { name: 'France', url: 'fr' },
@@ -40,5 +46,12 @@ export const buttons = () => {
 
   const valueOfValue = object(labelValue, defaultValueOfValue, groupIdValue);
 
-  return <DataSet type="buttons" label={valueLabel} value={valueOfValue} />;
+  return (
+    <DataSet
+      type="buttons"
+      label={valueLabel}
+      value={valueOfValue}
+      nullMessage={valueNullMessage}
+    />
+  );
 };

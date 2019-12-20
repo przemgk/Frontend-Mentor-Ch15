@@ -140,7 +140,12 @@ const DetailsTemplate = ({
             <DataSet type="text" label="Currencies" value={currencies} />
             <DataSet type="text" label="Languages" value={languages} />
           </StyledEssentialData>
-          <DataSet type="buttons" label="Border countries" value={borderCountries} />
+          <DataSet
+            type="buttons"
+            label="Border countries"
+            value={borderCountries}
+            nullMessage="Don't border with any country"
+          />
         </StyledDataWrapper>
       </StyledInner>
     </MenuBarTemplate>
