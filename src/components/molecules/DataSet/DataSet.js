@@ -72,7 +72,7 @@ class DataSet extends Component {
 DataSet.propTypes = {
   type: PropTypes.oneOf(['text', 'buttons']).isRequired,
   label: PropTypes.string.isRequired,
-  nullMessage: PropTypes.string.isRequired,
+  nullMessage: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -83,6 +83,10 @@ DataSet.propTypes = {
       })
     )
   ]).isRequired
+};
+
+DataSet.defaultProps = {
+  nullMessage: ''
 };
 
 export default DataSet;

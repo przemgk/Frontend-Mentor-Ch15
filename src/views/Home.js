@@ -3,6 +3,7 @@ import ListTemplate from 'templates/ListTemplate';
 import Card from 'components/molecules/Card/Card';
 import Preloader from 'components/molecules/Preloader/Preloader';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 class Home extends Component {
   state = {
@@ -11,6 +12,7 @@ class Home extends Component {
   };
 
   componentDidMount() {
+    console.log(this.props);
     axios
       .get('https://restcountries.eu/rest/v2/all', {
         params: {
@@ -56,4 +58,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);
