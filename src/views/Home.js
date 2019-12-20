@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ListTemplate from 'templates/ListTemplate';
 import Card from 'components/molecules/Card/Card';
+import Preloader from 'components/molecules/Preloader/Preloader';
 import axios from 'axios';
 
 class Home extends Component {
@@ -49,7 +50,7 @@ class Home extends Component {
 
     return (
       <ListTemplate>
-        <div>Loading</div>
+        <Preloader />
       </ListTemplate>
     );
   }

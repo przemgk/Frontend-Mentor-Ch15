@@ -6,6 +6,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import MenuBarTemplate from 'templates/MenuBarTemplate';
+import Preloader from 'components/molecules/Preloader/Preloader';
 
 class Details extends Component {
   state = {
@@ -134,7 +135,7 @@ class Details extends Component {
 
     return (
       <MenuBarTemplate>
-        <div>Loading</div>
+        <Preloader />
       </MenuBarTemplate>
     );
   }
