@@ -3,7 +3,7 @@ import ListTemplate from 'templates/ListTemplate';
 import Card from 'components/molecules/Card/Card';
 import Preloader from 'components/molecules/Preloader/Preloader';
 import axios from 'axios';
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import { routes } from 'routes';
 import PropTypes from 'prop-types';
 
@@ -27,17 +27,15 @@ class Home extends Component {
       location: { pathname }
     } = this.props;
 
-    const { data, currentRegion } = this.state;
+    const { data, currentRegion, isLoading } = this.state;
 
     const region = routes[pathname.slice(1)];
 
-    //
-    //
-    // Add loading when change region
-    //
-    //
-
     if (region && region !== currentRegion) {
+      if (isLoading === false) {
+        this.setState({ isLoading: true });
+      }
+
       axios
         .get(`https://restcountries.eu/rest/v2/region/${region.slice(1)}`, {
           params: {

@@ -12,7 +12,7 @@ const Root = () => (
       <Switch>
         <Route exact path={routes.home} component={Home} />
         <Route exact path={routes.africa} component={Home} />
-        <Route exact path={routes.america} component={Home} />
+        <Route exact path={routes.americas} component={Home} />
         <Route exact path={routes.asia} component={Home} />
         <Route exact path={routes.europe} component={Home} />
         <Route exact path={routes.oceania} component={Home} />
