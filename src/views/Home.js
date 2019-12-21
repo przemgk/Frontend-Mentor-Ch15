@@ -84,21 +84,31 @@ class Home extends Component {
     }
 
     if (!isLoading) {
+      if (countriesData.length > 0) {
+        return (
+          <ListTemplate handleSearching={this.handleSearching}>
+            {countriesData.map(({ name, population, region, capital, flag }) => (
+              <Card
+                key={name}
+                title={name}
+                desc={[
+                  { label: 'Population', value: population },
+                  { label: 'Region', value: region },
+                  { label: 'Capital', value: capital }
+                ]}
+                flagUrl={flag}
+              />
+            ))}
+          </ListTemplate>
+        );
+      }
+
       return (
-        <ListTemplate handleSearching={this.handleSearching}>
-          {countriesData.map(({ name, population, region, capital, flag }) => (
-            <Card
-              key={name}
-              title={name}
-              desc={[
-                { label: 'Population', value: population },
-                { label: 'Region', value: region },
-                { label: 'Capital', value: capital }
-              ]}
-              flagUrl={flag}
-            />
-          ))}
-        </ListTemplate>
+        <ListTemplate
+          handleSearching={this.handleSearching}
+          noResults
+          noResultsSearchQuery={searchQuery}
+        />
       );
     }
 
