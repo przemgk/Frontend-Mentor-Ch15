@@ -5,15 +5,14 @@ import { routes } from 'routes';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import MenuBarTemplate from 'templates/MenuBarTemplate';
-import Preloader from 'components/molecules/Preloader/Preloader';
 
 class Details extends Component {
   state = {
     data: {},
     borderCountries: [],
     currentCountry: '',
-    isLoading: true
+    isLoading: true,
+    canGetBorderCountriesNames: false
   };
 
   componentDidMount() {
@@ -21,13 +20,13 @@ class Details extends Component {
   }
 
   componentDidUpdate() {
-    const { currentCountry, isLoading } = this.state;
+    const { currentCountry, canGetBorderCountriesNames } = this.state;
 
     if (currentCountry !== this.getCurrentCountry()) {
       this.getCountryData();
     }
 
-    if (isLoading) {
+    if (canGetBorderCountriesNames) {
       this.getBorderCountriesNames();
     }
   }
@@ -45,7 +44,12 @@ class Details extends Component {
   };
 
   getCountryData = () => {
+    const { isLoading } = this.state;
     const currentCountry = this.getCurrentCountry();
+
+    if (!isLoading) {
+      this.setState({ isLoading: true });
+    }
 
     axios
       .get(`https://restcountries.eu/rest/v2/name/${currentCountry}`, {
@@ -59,7 +63,7 @@ class Details extends Component {
         this.setState({
           data: countryData,
           currentCountry,
-          isLoading: true
+          canGetBorderCountriesNames: true
         })
       )
       .catch(err => console.log(err));
@@ -73,7 +77,7 @@ class Details extends Component {
     const borderCountries = [];
 
     if (borders.length === 0) {
-      this.setState({ isLoading: false });
+      this.setState({ isLoading: false, canGetBorderCountriesNames: false });
     }
 
     borders.map(item =>
@@ -91,7 +95,8 @@ class Details extends Component {
           if (borders.length === borderCountries.length) {
             this.setState({
               borderCountries,
-              isLoading: false
+              isLoading: false,
+              canGetBorderCountriesNames: false
             });
           }
         })
@@ -133,11 +138,7 @@ class Details extends Component {
       );
     }
 
-    return (
-      <MenuBarTemplate>
-        <Preloader />
-      </MenuBarTemplate>
-    );
+    return <DetailsTemplate preloaderActive />;
   }
 }
 

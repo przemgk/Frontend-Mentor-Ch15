@@ -8,6 +8,7 @@ import Button from 'components/atoms/Button/Button';
 import FlagBox from 'components/atoms/FlagBox/FlagBox';
 import Heading from 'components/atoms/Heading/Heading';
 import DataSet, { StyledDataSet } from 'components/molecules/DataSet/DataSet';
+import Preloader from 'components/molecules/Preloader/Preloader';
 
 const StyledBar = styled.div`
   width: 100%;
@@ -104,6 +105,7 @@ const StyledEssentialData = styled.div`
 `;
 
 const DetailsTemplate = ({
+  preloaderActive,
   flagUrl,
   name,
   nativeName,
@@ -124,54 +126,75 @@ const DetailsTemplate = ({
           Back
         </Button>
       </StyledBar>
-      <StyledInner>
-        <FlagBox url={flagUrl} />
-        <StyledDataWrapper>
-          <Heading as="h2" large>
-            {name}
-          </Heading>
-          <StyledEssentialData>
-            <DataSet type="text" label="Native name" value={nativeName} />
-            <DataSet type="text" label="Population" value={population} />
-            <DataSet type="text" label="Region" value={region} />
-            <DataSet type="text" label="Sub region" value={subRegion} />
-            <DataSet type="text" label="Capital" value={capital} />
-            <DataSet type="text" label="Top level domain" value={topLevelDomain} />
-            <DataSet type="text" label="Currencies" value={currencies} />
-            <DataSet type="text" label="Languages" value={languages} />
-          </StyledEssentialData>
-          <DataSet
-            type="buttons"
-            label="Border countries"
-            value={borderCountries}
-            nullMessage="Don't border with any country"
-          />
-        </StyledDataWrapper>
-      </StyledInner>
+      {!preloaderActive ? (
+        <StyledInner>
+          <FlagBox url={flagUrl} />
+          <StyledDataWrapper>
+            <Heading as="h2" large>
+              {name}
+            </Heading>
+            <StyledEssentialData>
+              <DataSet type="text" label="Native name" value={nativeName} />
+              <DataSet type="text" label="Population" value={population} />
+              <DataSet type="text" label="Region" value={region} />
+              <DataSet type="text" label="Sub region" value={subRegion} />
+              <DataSet type="text" label="Capital" value={capital} />
+              <DataSet type="text" label="Top level domain" value={topLevelDomain} />
+              <DataSet type="text" label="Currencies" value={currencies} />
+              <DataSet type="text" label="Languages" value={languages} />
+            </StyledEssentialData>
+            <DataSet
+              type="buttons"
+              label="Border countries"
+              value={borderCountries}
+              nullMessage="Don't border with any country"
+            />
+          </StyledDataWrapper>
+        </StyledInner>
+      ) : (
+        <Preloader />
+      )}
     </MenuBarTemplate>
   );
 };
 
 DetailsTemplate.propTypes = {
-  flagUrl: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  nativeName: PropTypes.string.isRequired,
-  population: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  region: PropTypes.string.isRequired,
-  subRegion: PropTypes.string.isRequired,
-  capital: PropTypes.string.isRequired,
-  topLevelDomain: PropTypes.string.isRequired,
-  currencies: PropTypes.string.isRequired,
-  languages: PropTypes.string.isRequired,
+  preloaderActive: PropTypes.bool,
+  flagUrl: PropTypes.string,
+  name: PropTypes.string,
+  nativeName: PropTypes.string,
+  population: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  region: PropTypes.string,
+  subRegion: PropTypes.string,
+  capital: PropTypes.string,
+  topLevelDomain: PropTypes.string,
+  currencies: PropTypes.string,
+  languages: PropTypes.string,
   borderCountries: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       url: PropTypes.string.isRequired
     })
-  ).isRequired,
+  ),
   theme: PropTypes.shape({
     icons: PropTypes.objectOf(PropTypes.string).isRequired
-  }).isRequired
+  })
+};
+
+DetailsTemplate.defaultProps = {
+  preloaderActive: false,
+  flagUrl: '',
+  name: '',
+  nativeName: '',
+  population: '',
+  region: '',
+  subRegion: '',
+  capital: '',
+  topLevelDomain: '',
+  currencies: '',
+  languages: '',
+  borderCountries: null,
+  theme: null
 };
 
 export default withTheme(DetailsTemplate);
