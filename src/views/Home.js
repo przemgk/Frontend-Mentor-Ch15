@@ -4,29 +4,70 @@ import Card from 'components/molecules/Card/Card';
 import Preloader from 'components/molecules/Preloader/Preloader';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import { routes } from 'routes';
+import PropTypes from 'prop-types';
 
 class Home extends Component {
   state = {
     data: [],
-    isLoading: true
+    isLoading: true,
+    currentRegion: ''
   };
 
   componentDidMount() {
-    console.log(this.props);
-    axios
-      .get('https://restcountries.eu/rest/v2/all', {
-        params: {
-          fields: 'name;capital;region;population;flag'
-        }
-      })
-      .then(({ data }) => {
-        this.setState({
-          data,
-          isLoading: false
-        });
-      })
-      .catch(err => console.log(err));
+    this.getDataFromAPI();
   }
+
+  componentDidUpdate() {
+    this.getDataFromAPI();
+  }
+
+  getDataFromAPI = () => {
+    const {
+      location: { pathname }
+    } = this.props;
+
+    const { data, currentRegion } = this.state;
+
+    const region = routes[pathname.slice(1)];
+
+    //
+    //
+    // Add loading when change region
+    //
+    //
+
+    if (region && region !== currentRegion) {
+      axios
+        .get(`https://restcountries.eu/rest/v2/region/${region.slice(1)}`, {
+          params: {
+            fields: 'name;capital;region;population;flag'
+          }
+        })
+        .then(({ data: countryData }) => {
+          this.setState({
+            data: countryData,
+            currentRegion: region,
+            isLoading: false
+          });
+        })
+        .catch(err => console.log(err));
+    } else if (data.length === 0) {
+      axios
+        .get('https://restcountries.eu/rest/v2/all', {
+          params: {
+            fields: 'name;capital;region;population;flag'
+          }
+        })
+        .then(({ data: countryData }) => {
+          this.setState({
+            data: countryData,
+            isLoading: false
+          });
+        })
+        .catch(err => console.log(err));
+    }
+  };
 
   render() {
     const { data, isLoading } = this.state;
@@ -57,5 +98,11 @@ class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired
+  }).isRequired
+};
 
 export default withRouter(Home);

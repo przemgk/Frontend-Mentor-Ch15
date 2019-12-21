@@ -31,7 +31,7 @@ const FilterBar = () => (
     <StyledSearchInput placeholder="Search for a country..." />
     <Dropdown
       label="Filter by Region"
-      options={['africa', 'america', 'asia', 'europe', 'oceania']}
+      options={['africa', 'americas', 'asia', 'europe', 'oceania']}
     />
   </StyledWrapper>
 );

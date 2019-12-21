@@ -1,7 +1,7 @@
 export const routes = {
   home: '/',
   africa: '/africa',
-  america: '/america',
+  americas: '/americas',
   asia: '/asia',
   europe: '/europe',
   oceania: '/oceania',
