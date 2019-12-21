@@ -23,13 +23,17 @@ const StyledIcon = styled.img.attrs(({ theme }) => ({ src: theme.icons.noResults
   margin-right: 18px;
 `;
 
+const StyledStrong = styled(Strong)`
+  text-decoration: underline;
+`;
+
 const NoResults = ({ searchQuery }) => (
   <StyledWrapper>
     <StyledIcon />
     <div>
       <StyledHeading small>No matching serach results</StyledHeading>
       <Paragraph>
-        We couldn&rsquo;t find any country named <Strong>{searchQuery}</Strong>
+        We couldn&rsquo;t find any country named <StyledStrong>{searchQuery}</StyledStrong>
       </Paragraph>
     </div>
   </StyledWrapper>
