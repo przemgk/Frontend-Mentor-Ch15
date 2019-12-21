@@ -2,6 +2,7 @@ import MoonIcon from 'assets/lightTheme/icon-moon.svg';
 import ArrowHeadIcon from 'assets/lightTheme/icon-arrowhead.svg';
 import SearchIcon from 'assets/lightTheme/icon-search.svg';
 import ArrowIcon from 'assets/lightTheme/icon-arrow.svg';
+import NoResultsIcon from 'assets/lightTheme/icon-no-results.svg';
 
 export const lightTheme = {
   elementBgColor: 'hsl(0, 0%, 100%)',
@@ -16,6 +17,7 @@ export const lightTheme = {
     moon: MoonIcon,
     arrowHead: ArrowHeadIcon,
     search: SearchIcon,
-    arrow: ArrowIcon
+    arrow: ArrowIcon,
+    noResults: NoResultsIcon
   }
 };

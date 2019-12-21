@@ -2,6 +2,7 @@ import MoonIcon from 'assets/darkTheme/icon-moon.svg';
 import ArrowHeadIcon from 'assets/darkTheme/icon-arrowhead.svg';
 import SearchIcon from 'assets/darkTheme/icon-search.svg';
 import ArrowIcon from 'assets/darkTheme/icon-arrow.svg';
+import NoResultsIcon from 'assets/darkTheme/icon-no-results.svg';
 
 export const darkTheme = {
   elementBgColor: 'hsl(209, 23%, 22%)',
@@ -16,6 +17,7 @@ export const darkTheme = {
     moon: MoonIcon,
     arrowHead: ArrowHeadIcon,
     search: SearchIcon,
-    arrow: ArrowIcon
+    arrow: ArrowIcon,
+    noResults: NoResultsIcon
   }
 };

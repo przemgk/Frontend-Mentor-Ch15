@@ -85,7 +85,7 @@ class Card extends Component {
       <StyledWrapper onClick={this.handleRedirect}>
         <StyledFlagBox url={flagUrl} />
         <StyledContentWrapper>
-          <StyledHeading as="h3" small>
+          <StyledHeading as="h2" small>
             {title}
           </StyledHeading>
           <StyledDataGrid>
