@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ListTemplate from 'templates/ListTemplate';
 import Card from 'components/molecules/Card/Card';
-import Preloader from 'components/molecules/Preloader/Preloader';
 import axios from 'axios';
 import { withRouter } from 'react-router';
 import { routes } from 'routes';
@@ -11,7 +10,8 @@ class Home extends Component {
   state = {
     data: [],
     isLoading: true,
-    currentRegion: ''
+    currentRegion: '',
+    searchQuery: ''
   };
 
   componentDidMount() {
@@ -32,7 +32,7 @@ class Home extends Component {
     const region = routes[pathname.slice(1)];
 
     if (region && region !== currentRegion) {
-      if (isLoading === false) {
+      if (!isLoading) {
         this.setState({ isLoading: true });
       }
 
@@ -67,13 +67,26 @@ class Home extends Component {
     }
   };
 
+  handleSearching = e => {
+    const query = e.target.value.toLowerCase();
+
+    this.setState({ searchQuery: query });
+  };
+
   render() {
-    const { data, isLoading } = this.state;
+    const { data, isLoading, searchQuery } = this.state;
+    let countriesData;
+
+    if (searchQuery) {
+      countriesData = data.filter(({ name }) => name.toLowerCase().includes(searchQuery));
+    } else {
+      countriesData = data;
+    }
 
     if (!isLoading) {
       return (
-        <ListTemplate>
-          {data.map(({ name, population, region, capital, flag }) => (
+        <ListTemplate handleSearching={this.handleSearching}>
+          {countriesData.map(({ name, population, region, capital, flag }) => (
             <Card
               key={name}
               title={name}
@@ -89,11 +102,7 @@ class Home extends Component {
       );
     }
 
-    return (
-      <ListTemplate>
-        <Preloader />
-      </ListTemplate>
-    );
+    return <ListTemplate preloaderActive />;
   }
 }
 

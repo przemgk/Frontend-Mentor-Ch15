@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import SearchInput from 'components/atoms/SearchInput/SearchInput';
 import Dropdown from 'components/atoms/Dropdown/Dropdown';
+import PropTypes from 'prop-types';
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -26,14 +27,22 @@ const StyledSearchInput = styled(SearchInput)`
   }
 `;
 
-const FilterBar = () => (
+const FilterBar = ({ handleSearching }) => (
   <StyledWrapper>
-    <StyledSearchInput placeholder="Search for a country..." />
+    <StyledSearchInput onChange={handleSearching} placeholder="Search for a country..." />
     <Dropdown
       label="Filter by Region"
       options={['africa', 'americas', 'asia', 'europe', 'oceania']}
     />
   </StyledWrapper>
 );
+
+FilterBar.propTypes = {
+  handleSearching: PropTypes.func
+};
+
+FilterBar.defaultProps = {
+  handleSearching: () => {}
+};
 
 export default FilterBar;
