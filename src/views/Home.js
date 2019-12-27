@@ -37,6 +37,10 @@ class Home extends Component {
     const { countriesData, isFetchingData, isFetchingError } = this.props;
     const { currentRegion, searchQuery } = this.state;
 
+    const data = countriesData
+      .filter(({ region }) => region.toLowerCase().includes(currentRegion))
+      .filter(({ name }) => name.toLowerCase().includes(searchQuery));
+
     if (isFetchingData) {
       return <ListTemplate preloaderActive />;
     }
@@ -45,23 +49,30 @@ class Home extends Component {
       return <Redirect to={routes.connectionFailed} />;
     }
 
+    if (data.length === 0) {
+      return (
+        <ListTemplate
+          handleSearching={this.handleSearching}
+          noResults
+          noResultsSearchQuery={searchQuery}
+        />
+      );
+    }
+
     return (
       <ListTemplate handleSearching={this.handleSearching}>
-        {countriesData
-          .filter(({ region }) => region.toLowerCase().includes(currentRegion))
-          .filter(({ name }) => name.toLowerCase().includes(searchQuery))
-          .map(({ name, population, region, capital, flag }) => (
-            <Card
-              key={name}
-              title={name}
-              desc={[
-                { label: 'Population', value: population },
-                { label: 'Region', value: region },
-                { label: 'Capital', value: capital }
-              ]}
-              flagUrl={flag}
-            />
-          ))}
+        {data.map(({ name, population, region, capital, flag }) => (
+          <Card
+            key={name}
+            title={name}
+            desc={[
+              { label: 'Population', value: population },
+              { label: 'Region', value: region },
+              { label: 'Capital', value: capital }
+            ]}
+            flagUrl={flag}
+          />
+        ))}
       </ListTemplate>
     );
   }
@@ -80,11 +91,11 @@ Home.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired
   }).isRequired,
-  isFetchingData: PropTypes.bool.isRequired,
-  isFetchingError: PropTypes.bool.isRequired
+  isFetchingData: PropTypes.bool,
+  isFetchingError: PropTypes.bool
 };
 
-Home.defaultProps = { countriesData: [] };
+Home.defaultProps = { countriesData: [], isFetchingData: false, isFetchingError: false };
 
 const mapStateToProps = ({ countriesData, isFetchingData, isFetchingError }) => ({
   countriesData,
