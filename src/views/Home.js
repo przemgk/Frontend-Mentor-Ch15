@@ -1,125 +1,95 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import ListTemplate from 'templates/ListTemplate';
 import Card from 'components/molecules/Card/Card';
-import axios from 'axios';
-import { withRouter } from 'react-router';
-import { routes } from 'routes';
 import PropTypes from 'prop-types';
+import { withRouter, Redirect } from 'react-router';
+import { routes } from 'routes';
 
 class Home extends Component {
-  state = {
-    data: [],
-    isLoading: true,
-    currentRegion: '',
-    searchQuery: ''
-  };
+  state = { currentRegion: '', searchQuery: '' };
 
   componentDidMount() {
-    this.getDataFromAPI();
+    this.getCurrentRegion();
   }
 
   componentDidUpdate() {
-    this.getDataFromAPI();
+    this.getCurrentRegion();
   }
 
-  getDataFromAPI = () => {
+  getCurrentRegion = () => {
     const {
       location: { pathname }
     } = this.props;
 
-    const { data, currentRegion, isLoading } = this.state;
+    const { currentRegion } = this.state;
 
-    const region = routes[pathname.slice(1)];
+    const region = routes[pathname.slice(1)] ? routes[pathname.slice(1)].slice(1) : '';
 
-    if (region && region !== currentRegion) {
-      if (!isLoading) {
-        this.setState({ isLoading: true });
-      }
-
-      axios
-        .get(`https://restcountries.eu/rest/v2/region/${region.slice(1)}`, {
-          params: {
-            fields: 'name;capital;region;population;flag'
-          }
-        })
-        .then(({ data: countryData }) => {
-          this.setState({
-            data: countryData,
-            currentRegion: region,
-            isLoading: false
-          });
-        })
-        .catch(err => console.log(err));
-    } else if (data.length === 0) {
-      axios
-        .get('https://restcountries.eu/rest/v2/all', {
-          params: {
-            fields: 'name;capital;region;population;flag'
-          }
-        })
-        .then(({ data: countryData }) => {
-          this.setState({
-            data: countryData,
-            isLoading: false
-          });
-        })
-        .catch(err => console.log(err));
+    if (currentRegion !== region) {
+      this.setState({ currentRegion: region });
     }
   };
 
-  handleSearching = e => {
-    const query = e.target.value.toLowerCase();
-
-    this.setState({ searchQuery: query });
-  };
+  handleSearching = ({ target: { value } }) => this.setState({ searchQuery: value });
 
   render() {
-    const { data, isLoading, searchQuery } = this.state;
-    let countriesData;
+    const { countriesData, isFetchingData, isFetchingError } = this.props;
+    const { currentRegion, searchQuery } = this.state;
 
-    if (searchQuery) {
-      countriesData = data.filter(({ name }) => name.toLowerCase().includes(searchQuery));
-    } else {
-      countriesData = data;
+    if (isFetchingData) {
+      return <ListTemplate preloaderActive />;
     }
 
-    if (!isLoading) {
-      if (countriesData.length > 0) {
-        return (
-          <ListTemplate handleSearching={this.handleSearching}>
-            {countriesData.map(({ name, population, region, capital, flag }) => (
-              <Card
-                key={name}
-                title={name}
-                desc={[
-                  { label: 'Population', value: population },
-                  { label: 'Region', value: region },
-                  { label: 'Capital', value: capital }
-                ]}
-                flagUrl={flag}
-              />
-            ))}
-          </ListTemplate>
-        );
-      }
-
-      return (
-        <ListTemplate
-          handleSearching={this.handleSearching}
-          noResults
-          noResultsSearchQuery={searchQuery}
-        />
-      );
+    if (isFetchingError) {
+      return <Redirect to={routes.connectionFailed} />;
     }
 
-    return <ListTemplate preloaderActive />;
+    return (
+      <ListTemplate handleSearching={this.handleSearching}>
+        {countriesData
+          .filter(({ region }) => region.toLowerCase().includes(currentRegion))
+          .filter(({ name }) => name.toLowerCase().includes(searchQuery))
+          .map(({ name, population, region, capital, flag }) => (
+            <Card
+              key={name}
+              title={name}
+              desc={[
+                { label: 'Population', value: population },
+                { label: 'Region', value: region },
+                { label: 'Capital', value: capital }
+              ]}
+              flagUrl={flag}
+            />
+          ))}
+      </ListTemplate>
+    );
   }
 }
 
 Home.propTypes = {
+  countriesData: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      population: PropTypes.number.isRequired,
+      region: PropTypes.string.isRequired,
+      capital: PropTypes.string.isRequired,
+      flag: PropTypes.string.isRequired
+    })
+  ),
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  isFetchingData: PropTypes.bool.isRequired,
+  isFetchingError: PropTypes.bool.isRequired
 };
 
-export default withRouter(Home);
+Home.defaultProps = { countriesData: [] };
+
+const mapStateToProps = ({ countriesData, isFetchingData, isFetchingError }) => ({
+  countriesData,
+  isFetchingData,
+  isFetchingError
+});
+
+export default connect(mapStateToProps)(withRouter(Home));

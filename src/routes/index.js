@@ -5,5 +5,6 @@ export const routes = {
   asia: '/asia',
   europe: '/europe',
   oceania: '/oceania',
-  countries: '/countries/:id'
+  countries: '/countries/:id',
+  connectionFailed: '/connection-failed'
 };

@@ -8,6 +8,8 @@ import { routes } from 'routes';
 import { withRouter } from 'react-router';
 import { matchPath } from 'react-router-dom';
 import { PageContext, ThemeContext } from 'context';
+import { connect } from 'react-redux';
+import { fetchData as fetchDataAction } from 'actions';
 
 class MainTemplate extends Component {
   state = {
@@ -16,7 +18,11 @@ class MainTemplate extends Component {
   };
 
   componentDidMount() {
+    const { fetchData } = this.props;
+
     this.setPageType();
+
+    fetchData();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -63,7 +69,10 @@ class MainTemplate extends Component {
 
 MainTemplate.propTypes = {
   children: PropTypes.element.isRequired,
-  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired
+  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
+  fetchData: PropTypes.func.isRequired
 };
 
-export default withRouter(MainTemplate);
+const mapDispatchToProps = dispatch => ({ fetchData: () => dispatch(fetchDataAction()) });
+
+export default connect(null, mapDispatchToProps)(withRouter(MainTemplate));
