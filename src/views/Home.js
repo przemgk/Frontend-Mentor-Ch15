@@ -3,45 +3,21 @@ import { connect } from 'react-redux';
 import ListTemplate from 'templates/ListTemplate';
 import Card from 'components/molecules/Card/Card';
 import PropTypes from 'prop-types';
-import { withRouter, Redirect } from 'react-router';
+import { Redirect } from 'react-router';
 import { routes } from 'routes';
 
 class Home extends Component {
-  state = { currentRegion: '', searchQuery: '' };
-
-  componentDidMount() {
-    this.getCurrentRegion();
-  }
-
-  componentDidUpdate() {
-    this.getCurrentRegion();
-  }
-
-  getCurrentRegion = () => {
-    const {
-      location: { pathname }
-    } = this.props;
-
-    const { currentRegion } = this.state;
-
-    const region = routes[pathname.slice(1)] ? routes[pathname.slice(1)].slice(1) : '';
-
-    if (currentRegion !== region) {
-      this.setState({ currentRegion: region });
-    }
-  };
+  state = { searchQuery: '' };
 
   handleSearching = ({ target: { value } }) => this.setState({ searchQuery: value });
 
   render() {
     const { countriesData, isFetchingData, isFetchingError } = this.props;
-    const { currentRegion, searchQuery } = this.state;
+    const { searchQuery } = this.state;
 
-    const data = countriesData
-      .filter(({ region }) => region.toLowerCase().includes(currentRegion))
-      .filter(({ name }) => name.toLowerCase().includes(searchQuery));
+    const data = countriesData.filter(({ name }) => name.toLowerCase().includes(searchQuery));
 
-    if (isFetchingData) {
+    if (isFetchingData && !isFetchingError) {
       return <ListTemplate preloaderActive />;
     }
 
@@ -49,7 +25,7 @@ class Home extends Component {
       return <Redirect to={routes.connectionFailed} />;
     }
 
-    if (data.length === 0) {
+    if (data.length === 0 && searchQuery !== '') {
       return (
         <ListTemplate
           handleSearching={this.handleSearching}
@@ -87,20 +63,37 @@ Home.propTypes = {
       capital: PropTypes.string.isRequired,
       flag: PropTypes.string.isRequired
     })
-  ),
+  ).isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired
   }).isRequired,
-  isFetchingData: PropTypes.bool,
-  isFetchingError: PropTypes.bool
+  isFetchingData: PropTypes.bool.isRequired,
+  isFetchingError: PropTypes.bool.isRequired
 };
 
-Home.defaultProps = { countriesData: [], isFetchingData: false, isFetchingError: false };
+const mapStateToProps = (
+  { countriesData: countriesDataState, isFetchingData, isFetchingError },
+  { match }
+) => {
+  const currentRegion = routes[match.path.slice(1)];
 
-const mapStateToProps = ({ countriesData, isFetchingData, isFetchingError }) => ({
-  countriesData,
-  isFetchingData,
-  isFetchingError
-});
+  const countriesData = countriesDataState
+    .filter(({ region }) =>
+      region.toLowerCase().includes(currentRegion ? currentRegion.slice(1) : '')
+    )
+    .map(({ name, region, flag, capital, population }) => ({
+      name,
+      region,
+      flag,
+      capital,
+      population
+    }));
 
-export default connect(mapStateToProps)(withRouter(Home));
+  return {
+    countriesData,
+    isFetchingData,
+    isFetchingError
+  };
+};
+
+export default connect(mapStateToProps)(Home);

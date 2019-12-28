@@ -8,12 +8,12 @@ const initialState = {
 
 const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case FETCH_SUCCESS:
-      return { countriesData: payload, isFetchingData: false };
     case FETCH_REQUEST:
-      return { isFetchingData: true };
+      return { ...state, isFetchingData: true };
+    case FETCH_SUCCESS:
+      return { ...state, countriesData: payload, isFetchingData: false };
     case FETCH_FAILURE:
-      return { isFetchingError: true, isFetchingData: false };
+      return { ...state, isFetchingError: true };
     default:
       return state;
   }
