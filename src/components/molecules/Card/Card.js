@@ -74,7 +74,7 @@ class Card extends Component {
     const { title, desc, flagUrl } = this.props;
 
     const detailsPath = generatePath(routes.countries, {
-      id: encodeURI(title).toLowerCase()
+      id: encodeURI(title.toLowerCase())
     });
 
     if (redirect) {
