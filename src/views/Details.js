@@ -1,151 +1,79 @@
-import React, { Component } from 'react';
+import React from 'react';
 import DetailsTemplate from 'templates/DetailsTemplate';
-import { matchPath, generatePath } from 'react-router-dom';
-import { routes } from 'routes';
-import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
+import { routes } from 'routes';
 
-class Details extends Component {
-  state = {
-    data: {},
-    borderCountries: [],
-    currentCountry: '',
-    isLoading: true,
-    canGetBorderCountriesNames: false
-  };
-
-  componentDidMount() {
-    this.getCountryData();
-  }
-
-  componentDidUpdate() {
-    const { currentCountry, canGetBorderCountriesNames } = this.state;
-
-    if (currentCountry !== this.getCurrentCountry()) {
-      this.getCountryData();
-    }
-
-    if (canGetBorderCountriesNames) {
-      this.getBorderCountriesNames();
-    }
-  }
-
-  getCurrentCountry = () => {
-    const {
-      location: { pathname }
-    } = this.props;
-
-    const {
-      params: { id }
-    } = matchPath(pathname, { path: routes.countries, exact: true });
-
-    return decodeURI(id);
-  };
-
-  getCountryData = () => {
-    const { isLoading } = this.state;
-    const currentCountry = this.getCurrentCountry();
-
-    if (!isLoading) {
-      this.setState({ isLoading: true });
-    }
-
-    axios
-      .get(`https://restcountries.eu/rest/v2/name/${currentCountry}`, {
-        params: {
-          fullText: true,
-          fields:
-            'name;capital;region;population;flag;subregion;nativeName;topLevelDomain;languages;currencies;borders'
-        }
-      })
-      .then(({ data: [countryData] }) =>
-        this.setState({
-          data: countryData,
-          currentCountry,
-          canGetBorderCountriesNames: true
-        })
-      )
-      .catch(err => console.log(err));
-  };
-
-  getBorderCountriesNames = () => {
-    const {
-      data: { borders }
-    } = this.state;
-
-    const borderCountries = [];
-
-    if (borders.length === 0) {
-      this.setState({ isLoading: false, canGetBorderCountriesNames: false });
-    }
-
-    borders.map(item =>
-      axios
-        .get(`https://restcountries.eu/rest/v2/alpha/${item.toLowerCase()}`, {
-          params: { fields: 'name' }
-        })
-        .then(({ data: { name: borderCountryName } }) => {
-          const path = generatePath(routes.countries, {
-            id: encodeURI(borderCountryName).toLowerCase()
-          });
-
-          borderCountries.push({ name: borderCountryName, url: path });
-
-          if (borders.length === borderCountries.length) {
-            this.setState({
-              borderCountries,
-              isLoading: false,
-              canGetBorderCountriesNames: false
-            });
-          }
-        })
-        .catch(err => console.log(err))
-    );
-  };
-
-  render() {
-    const { data, borderCountries, isLoading } = this.state;
-
-    if (!isLoading) {
-      const {
-        flag,
-        name,
-        population,
-        region,
-        capital,
-        subregion,
-        nativeName,
-        topLevelDomain,
-        languages,
-        currencies
-      } = data;
-
-      return (
-        <DetailsTemplate
-          flagUrl={flag}
-          name={name}
-          nativeName={nativeName}
-          population={population}
-          region={region}
-          subRegion={subregion}
-          capital={capital}
-          topLevelDomain={topLevelDomain.join(', ')}
-          currencies={currencies.map(({ name: currencyName }) => currencyName).join(', ')}
-          languages={languages.map(({ name: languageName }) => languageName).join(', ')}
-          borderCountries={borderCountries.map(item => item)}
-        />
-      );
-    }
-
+const Details = ({ countryData, isFetchingData, isFetchingError }) => {
+  if (isFetchingData && !isFetchingError) {
     return <DetailsTemplate preloaderActive />;
   }
-}
 
-Details.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
-  }).isRequired
+  if (isFetchingError) {
+    return <Redirect to={routes.connectionFailed} />;
+  }
+
+  return (
+    <DetailsTemplate
+      flagUrl={countryData.flag}
+      name={countryData.name}
+      nativeName={countryData.nativeName}
+      population={countryData.population}
+      region={countryData.region}
+      subRegion={countryData.subregion}
+      capital={countryData.capital}
+      topLevelDomain={countryData.topLevelDomain.join(', ')}
+      currencies={countryData.currencies.map(({ name: currencyName }) => currencyName).join(', ')}
+      languages={countryData.languages.map(({ name: languageName }) => languageName).join(', ')}
+      borderCountries={countryData.borders}
+    />
+  );
 };
 
-export default withRouter(Details);
+Details.propTypes = {
+  countryData: PropTypes.shape({
+    flag: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    nativeName: PropTypes.string.isRequired,
+    region: PropTypes.string.isRequired,
+    population: PropTypes.number.isRequired,
+    subregion: PropTypes.string.isRequired,
+    capital: PropTypes.string.isRequired,
+    topLevelDomain: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    currencies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+    languages: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+    borders: PropTypes.arrayOf(
+      PropTypes.shape({ name: PropTypes.string.isRequired, url: PropTypes.string.isRequired })
+        .isRequired
+    ).isRequired
+  }),
+  isFetchingData: PropTypes.bool.isRequired,
+  isFetchingError: PropTypes.bool.isRequired
+};
+
+Details.defaultProps = {
+  countryData: {
+    flag: '',
+    name: '',
+    nativeName: '',
+    region: '',
+    population: 0,
+    subregion: '',
+    capital: '',
+    topLevelDomain: [],
+    currencies: [],
+    languages: [],
+    borders: []
+  }
+};
+
+const mapStateToProps = ({ countriesData, isFetchingData, isFetchingError }, { match }) => {
+  const currentCountry = match.params.id;
+
+  const [countryData] = countriesData.filter(({ name }) => currentCountry === name.toLowerCase());
+
+  return { countryData, isFetchingData, isFetchingError };
+};
+
+export default connect(mapStateToProps)(Details);
