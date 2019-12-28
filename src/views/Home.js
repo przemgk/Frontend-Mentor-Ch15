@@ -40,7 +40,7 @@ class Home extends Component {
         {data.map(({ name, population, region, capital, flag }) => (
           <Card
             key={name}
-            title={name}
+            name={name}
             desc={[
               { label: 'Population', value: population },
               { label: 'Region', value: region },

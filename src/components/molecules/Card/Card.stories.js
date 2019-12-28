@@ -14,11 +14,11 @@ export default {
 };
 
 export const normal = () => {
-  const labelTitle = 'Title';
-  const defaultValueTitle = 'Germany';
-  const groupIdTitle = 'Component';
+  const labelName = 'Name';
+  const defaultValueName = 'Germany';
+  const groupIdName = 'Component';
 
-  const valueTitle = text(labelTitle, defaultValueTitle, groupIdTitle);
+  const valueName = text(labelName, defaultValueName, groupIdName);
 
   const labelFlagUrl = 'Flag Url';
   const defaultValueFlagUrl = 'https://restcountries.eu/data/deu.svg';
@@ -38,7 +38,7 @@ export const normal = () => {
 
   return (
     <StyledCardWrapper>
-      <Card title={valueTitle} desc={valueDesc} flagUrl={valueFlagUrl} />
+      <Card name={valueName} desc={valueDesc} flagUrl={valueFlagUrl} />
     </StyledCardWrapper>
   );
 };

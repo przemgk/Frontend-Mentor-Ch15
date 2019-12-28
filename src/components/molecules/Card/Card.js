@@ -71,10 +71,10 @@ class Card extends Component {
 
   render() {
     const { redirect } = this.state;
-    const { title, desc, flagUrl } = this.props;
+    const { name, desc, flagUrl } = this.props;
 
     const detailsPath = generatePath(routes.countries, {
-      id: encodeURI(title.toLowerCase())
+      id: encodeURI(name.toLowerCase())
     });
 
     if (redirect) {
@@ -86,7 +86,7 @@ class Card extends Component {
         <StyledFlagBox url={flagUrl} />
         <StyledContentWrapper>
           <StyledHeading as="h2" small>
-            {title}
+            {name}
           </StyledHeading>
           <StyledDataGrid>
             {desc.map(({ label, value }) => (
@@ -100,7 +100,7 @@ class Card extends Component {
 }
 
 Card.propTypes = {
-  title: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   desc: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
