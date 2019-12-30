@@ -6,11 +6,10 @@ import Home from 'views/Home';
 import Details from 'views/Details';
 import NotFound404 from 'views/NotFound404';
 import ConnectionFailed from 'views/ConnectionFailed';
-import { Provider } from 'react-redux';
-import store from 'store';
+import Store from 'store';
 
 const Root = () => (
-  <Provider store={store}>
+  <Store>
     <BrowserRouter>
       <MainTemplate>
         <Switch>
@@ -26,7 +25,7 @@ const Root = () => (
         </Switch>
       </MainTemplate>
     </BrowserRouter>
-  </Provider>
+  </Store>
 );
 
 export default Root;

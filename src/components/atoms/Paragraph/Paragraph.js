@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import withPageContext from 'hoc/withPageContext';
+import withPageType from 'hoc/withPageType';
 
 const Paragraph = styled.p`
   display: inline-block;
-  font-size: ${({ theme, pageContext }) => theme.fontSize.r[pageContext]};
+  font-size: ${({ theme, pageType }) => theme.fontSize.r[pageType]};
   line-height: 1.6;
   margin: 0;
 `;
 
-export default withPageContext(Paragraph);
+export default withPageType(Paragraph);

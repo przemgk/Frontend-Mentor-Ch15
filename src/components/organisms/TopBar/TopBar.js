@@ -1,11 +1,11 @@
-import React from 'react';
-import styled, { withTheme } from 'styled-components';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
 import { Link } from 'react-router-dom';
 import { routes } from 'routes';
-import withThemeContext from 'hoc/withThemeContext';
+import { toogleThemeAction } from 'actions';
+import { StoreContext } from 'store';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -34,28 +34,20 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const TopBar = ({ themeContext: { handleThemeToggle }, theme: { icons } }) => (
-  <StyledWrapper>
-    <StyledHeading as="h1">
-      <StyledLink to={routes.home}>Where in the world?</StyledLink>
-    </StyledHeading>
-    <Button onClick={handleThemeToggle} icon={icons.moon} hideShadow>
-      Dark mode
-    </Button>
-  </StyledWrapper>
-);
+const TopBar = () => {
+  const [, dispatch] = useContext(StoreContext);
+  const { icons } = useContext(ThemeContext);
 
-TopBar.propTypes = {
-  themeContext: PropTypes.shape({
-    handleThemeToggle: PropTypes.func.isRequired
-  }),
-  theme: PropTypes.shape({
-    icons: PropTypes.objectOf(PropTypes.string).isRequired
-  }).isRequired
+  return (
+    <StyledWrapper>
+      <StyledHeading as="h1">
+        <StyledLink to={routes.home}>Where in the world?</StyledLink>
+      </StyledHeading>
+      <Button onClick={() => toogleThemeAction(dispatch)} icon={icons.moon} hideShadow>
+        Dark mode
+      </Button>
+    </StyledWrapper>
+  );
 };
 
-TopBar.defaultProps = {
-  themeContext: { handleThemeToggle() {} }
-};
-
-export default withTheme(withThemeContext(TopBar));
+export default TopBar;

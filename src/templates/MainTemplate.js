@@ -1,78 +1,35 @@
-import React, { Component } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { StoreContext } from 'store';
 import PropTypes from 'prop-types';
 import GlobalStyles from 'theme/GlobalStyles';
 import { ThemeProvider } from 'styled-components';
 import { Normalize } from 'styled-normalize';
 import { theme } from 'theme/mainTheme';
 import { routes } from 'routes';
-import { withRouter } from 'react-router';
-import { matchPath } from 'react-router-dom';
-import { PageContext, ThemeContext } from 'context';
-import { connect } from 'react-redux';
-import { fetchData as fetchDataAction } from 'actions';
+import { useRouteMatch } from 'react-router-dom';
+import { setPageType } from 'actions';
 
-class MainTemplate extends Component {
-  state = {
-    pageType: 'home',
-    currentTheme: 'light'
-  };
+const MainTemplate = ({ children }) => {
+  const [state, dispatch] = useContext(StoreContext);
+  const pageType = !useRouteMatch(routes.countries) ? 'home' : 'details';
 
-  componentDidMount() {
-    const { fetchData } = this.props;
+  useEffect(() => {
+    setPageType(dispatch, pageType);
+  }, [dispatch, pageType]);
 
-    this.setPageType();
-
-    fetchData();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    this.setPageType(prevState);
-  }
-
-  setPageType = (prevState = {}) => {
-    const {
-      location: { pathname }
-    } = this.props;
-
-    const match = matchPath(pathname, { path: routes.countries, exact: true });
-
-    const currentPage = match ? 'details' : 'home';
-
-    if (prevState.pageType !== currentPage) {
-      this.setState({ pageType: currentPage });
-    }
-  };
-
-  handleThemeToggle = () => {
-    this.setState(prevState => ({
-      currentTheme: prevState.currentTheme === 'light' ? 'dark' : 'light'
-    }));
-  };
-
-  render() {
-    const { children } = this.props;
-    const { currentTheme, pageType } = this.state;
-
-    return (
-      <PageContext.Provider value={pageType}>
-        <ThemeContext.Provider value={{ handleThemeToggle: this.handleThemeToggle }}>
-          <Normalize />
-          <ThemeProvider theme={theme(`${currentTheme}`)}>
-            <GlobalStyles />
-            {children}
-          </ThemeProvider>
-        </ThemeContext.Provider>
-      </PageContext.Provider>
-    );
-  }
-}
-
-MainTemplate.propTypes = {
-  children: PropTypes.element.isRequired,
-  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
-  fetchData: PropTypes.func.isRequired
+  return (
+    <>
+      <Normalize />
+      <ThemeProvider theme={theme(`${state.currentTheme}`)}>
+        <GlobalStyles />
+        {children}
+      </ThemeProvider>
+    </>
+  );
 };
 
-const mapDispatchToProps = dispatch => ({ fetchData: () => dispatch(fetchDataAction()) });
+MainTemplate.propTypes = {
+  children: PropTypes.element.isRequired
+};
 
-export default connect(null, mapDispatchToProps)(withRouter(MainTemplate));
+export default MainTemplate;
