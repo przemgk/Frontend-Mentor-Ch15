@@ -1,10 +1,24 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import React, { createContext, useReducer } from 'react';
 import rootReducer from 'reducers';
-import thunk from 'redux-thunk';
+import PropTypes from 'prop-types';
 
-/* eslint-disable no-underscore-dangle */
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
-/* eslint-enable */
+const initialState = {
+  countriesData: [],
+  isFetchingData: null,
+  isFetchingError: null,
+  pageType: 'home',
+  currentTheme: 'light'
+};
 
-export default store;
+export const StoreContext = createContext(initialState);
+
+const Store = ({ children }) => {
+  const [state, dispatch] = useReducer(rootReducer, initialState);
+  return <StoreContext.Provider value={[state, dispatch]}>{children}</StoreContext.Provider>;
+};
+
+Store.propTypes = {
+  children: PropTypes.node.isRequired
+};
+
+export default Store;
