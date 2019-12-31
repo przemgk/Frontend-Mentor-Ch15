@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import FlagBox from 'components/atoms/FlagBox/FlagBox';
 import Heading from 'components/atoms/Heading/Heading';
@@ -64,40 +64,34 @@ const StyledDataGrid = styled.div`
   grid-gap: 8px;
 `;
 
-class Card extends Component {
-  state = { redirect: false };
+const Card = ({ name, desc, flagUrl }) => {
+  const [redirect, setRedirect] = useState(false);
+  console.log('Render karty');
 
-  handleRedirect = () => this.setState({ redirect: true });
-
-  render() {
-    const { redirect } = this.state;
-    const { name, desc, flagUrl } = this.props;
-
+  if (redirect) {
     const detailsPath = generatePath(routes.countries, {
       id: encodeURI(name.toLowerCase())
     });
 
-    if (redirect) {
-      return <Redirect to={detailsPath} />;
-    }
-
-    return (
-      <StyledWrapper onClick={this.handleRedirect}>
-        <StyledFlagBox url={flagUrl} />
-        <StyledContentWrapper>
-          <StyledHeading as="h2" small>
-            {name}
-          </StyledHeading>
-          <StyledDataGrid>
-            {desc.map(({ label, value }) => (
-              <DataSet type="text" label={label} value={value} key={label} />
-            ))}
-          </StyledDataGrid>
-        </StyledContentWrapper>
-      </StyledWrapper>
-    );
+    return <Redirect to={detailsPath} />;
   }
-}
+
+  return (
+    <StyledWrapper onClick={() => setRedirect(true)}>
+      <StyledFlagBox url={flagUrl} />
+      <StyledContentWrapper>
+        <StyledHeading as="h2" small>
+          {name}
+        </StyledHeading>
+        <StyledDataGrid>
+          {desc.map(({ label, value }) => (
+            <DataSet type="text" label={label} value={value} key={label} />
+          ))}
+        </StyledDataGrid>
+      </StyledContentWrapper>
+    </StyledWrapper>
+  );
+};
 
 Card.propTypes = {
   name: PropTypes.string.isRequired,
@@ -110,4 +104,54 @@ Card.propTypes = {
   flagUrl: PropTypes.string.isRequired
 };
 
-export default Card;
+// Own comparison for React.memo HOC
+const areEqual = (prevProps, nextProps) => {
+  let result = true;
+
+  if (prevProps.name !== nextProps.name) {
+    result = false;
+  }
+  if (prevProps.flagUrl !== nextProps.flagUrl) {
+    result = false;
+  }
+
+  if (prevProps.desc.length !== nextProps.desc.length) {
+    result = false;
+  }
+
+  const objectsEquality = (obj1, obj2) => {
+    let equality = true;
+    const obj1Keys = Object.keys(obj1);
+    const obj2Keys = Object.keys(obj2);
+
+    if (obj1Keys.length !== obj2Keys.length) {
+      equality = false;
+    }
+
+    obj1Keys.forEach(key => {
+      if (obj1[key] !== obj2[key]) {
+        equality = false;
+      }
+    });
+
+    return equality;
+  };
+
+  prevProps.desc.forEach(obj1 => {
+    let objEquality = false;
+
+    nextProps.desc.forEach(obj2 => {
+      if (objectsEquality(obj1, obj2)) {
+        objEquality = true;
+      }
+    });
+
+    if (!objEquality) {
+      result = false;
+    }
+  });
+
+  return result;
+};
+
+export default React.memo(Card, areEqual);
