@@ -19,6 +19,7 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'Nunito Sans', sans-serif;
     font-size: ${({ theme }) => theme.fontSize.r.home};
     font-weight: ${({ theme }) => theme.fontWeight.regular};
+    font-display: swap;
     color: ${({ theme }) => theme.fontColor.primary};
     background-color: ${({ theme }) => theme.bgColor};
   }

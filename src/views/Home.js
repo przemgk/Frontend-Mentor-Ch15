@@ -1,43 +1,37 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useContext, useState, useEffect } from 'react';
 import ListTemplate from 'templates/ListTemplate';
 import Card from 'components/molecules/Card/Card';
-import PropTypes from 'prop-types';
-import { Redirect } from 'react-router';
 import { routes } from 'routes';
+import { StoreContext } from 'store';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-class Home extends Component {
-  state = { searchQuery: '' };
+const Home = ({ match: { path } }) => {
+  const [{ isFetchingData, isFetchingError, countriesData }] = useContext(StoreContext);
+  const [isReady, changeReadyState] = useState(false);
+  const [serachQuery, handleSearching] = useState('');
+  const [currentRegion, setCurrentRegion] = useState('');
 
-  handleSearching = ({ target: { value } }) => this.setState({ searchQuery: value });
+  useEffect(() => changeReadyState(true), []);
 
-  render() {
-    const { countriesData, isFetchingData, isFetchingError } = this.props;
-    const { searchQuery } = this.state;
-
-    const data = countriesData.filter(({ name }) => name.toLowerCase().includes(searchQuery));
-
-    if (isFetchingData && !isFetchingError) {
-      return <ListTemplate preloaderActive />;
+  useEffect(() => {
+    if (routes[path.slice(1)]) {
+      setCurrentRegion(routes[path.slice(1)].slice(1));
     }
+  }, [path]);
 
-    if (isFetchingError) {
-      return <Redirect to={routes.connectionFailed} />;
-    }
+  if (isFetchingError) {
+    return <Redirect to={routes.connectionFailed} />;
+  }
 
-    if (data.length === 0 && searchQuery !== '') {
-      return (
-        <ListTemplate
-          handleSearching={this.handleSearching}
-          noResults
-          noResultsSearchQuery={searchQuery}
-        />
-      );
-    }
+  if (!isFetchingData && isReady) {
+    const computeData = countriesData
+      .filter(({ region }) => region.toLowerCase().includes(currentRegion))
+      .filter(({ name }) => name.toLowerCase().includes(serachQuery.toLowerCase()));
 
-    return (
-      <ListTemplate handleSearching={this.handleSearching}>
-        {data.map(({ name, population, region, capital, flag }) => (
+    return computeData.length ? (
+      <ListTemplate handleSearching={handleSearching}>
+        {computeData.map(({ name, population, region, capital, flag }) => (
           <Card
             key={name}
             name={name}
@@ -50,50 +44,20 @@ class Home extends Component {
           />
         ))}
       </ListTemplate>
+    ) : (
+      <ListTemplate
+        handleSearching={handleSearching}
+        noResults
+        noResultsSearchQuery={serachQuery}
+      />
     );
   }
-}
+
+  return <ListTemplate preloaderActive />;
+};
 
 Home.propTypes = {
-  countriesData: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      population: PropTypes.number.isRequired,
-      region: PropTypes.string.isRequired,
-      capital: PropTypes.string.isRequired,
-      flag: PropTypes.string.isRequired
-    })
-  ).isRequired,
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
-  }).isRequired,
-  isFetchingData: PropTypes.bool.isRequired,
-  isFetchingError: PropTypes.bool.isRequired
+  match: PropTypes.shape({ path: PropTypes.string.isRequired }).isRequired
 };
 
-const mapStateToProps = (
-  { countriesData: countriesDataState, isFetchingData, isFetchingError },
-  { match }
-) => {
-  const currentRegion = routes[match.path.slice(1)];
-
-  const countriesData = countriesDataState
-    .filter(({ region }) =>
-      region.toLowerCase().includes(currentRegion ? currentRegion.slice(1) : '')
-    )
-    .map(({ name, region, flag, capital, population }) => ({
-      name,
-      region,
-      flag,
-      capital,
-      population
-    }));
-
-  return {
-    countriesData,
-    isFetchingData,
-    isFetchingError
-  };
-};
-
-export default connect(mapStateToProps)(Home);
+export default Home;

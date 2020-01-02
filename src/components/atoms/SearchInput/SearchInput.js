@@ -20,6 +20,13 @@ const SearchInput = styled.input.attrs(() => ({
   background-size: 16px auto;
   background-position: 24px 50%;
 
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    appearance: none;
+  }
+
   &::placeholder {
     color: ${({ theme }) => theme.fontColor.tertiary};
   }

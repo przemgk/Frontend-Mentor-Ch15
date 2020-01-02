@@ -11,7 +11,7 @@ const StyledGrid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   grid-gap: 40px;
   width: 100%;
-  padding: 0 10%;
+  padding: 0 10% 120px;
 
   @media screen and (min-width: 768px) {
     grid-gap: 64px;

@@ -29,7 +29,10 @@ const StyledSearchInput = styled(SearchInput)`
 
 const FilterBar = ({ handleSearching }) => (
   <StyledWrapper>
-    <StyledSearchInput onChange={handleSearching} placeholder="Search for a country..." />
+    <StyledSearchInput
+      onChange={({ target: { value } }) => handleSearching(value)}
+      placeholder="Search for a country..."
+    />
     <Dropdown
       label="Filter by Region"
       options={['africa', 'americas', 'asia', 'europe', 'oceania']}

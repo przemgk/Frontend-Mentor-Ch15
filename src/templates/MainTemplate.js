@@ -7,15 +7,19 @@ import { Normalize } from 'styled-normalize';
 import { theme } from 'theme/mainTheme';
 import { routes } from 'routes';
 import { useRouteMatch } from 'react-router-dom';
-import { setPageType } from 'actions';
+import { setPageTypeAction, fetchDataAction } from 'actions';
 
 const MainTemplate = ({ children }) => {
   const [state, dispatch] = useContext(StoreContext);
   const pageType = !useRouteMatch(routes.countries) ? 'home' : 'details';
 
   useEffect(() => {
-    setPageType(dispatch, pageType);
+    setPageTypeAction(dispatch, pageType);
   }, [dispatch, pageType]);
+
+  useEffect(() => {
+    fetchDataAction(dispatch);
+  }, [dispatch]);
 
   return (
     <>

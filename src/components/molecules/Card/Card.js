@@ -66,7 +66,6 @@ const StyledDataGrid = styled.div`
 
 const Card = ({ name, desc, flagUrl }) => {
   const [redirect, setRedirect] = useState(false);
-  console.log('Render karty');
 
   if (redirect) {
     const detailsPath = generatePath(routes.countries, {
