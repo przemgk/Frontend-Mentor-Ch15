@@ -9,8 +9,7 @@ const StyledWrapper = styled.div`
   position: relative;
 `;
 
-const StyledLabel = styled.span`
-  display: block;
+const StyledLabel = styled.div`
   position: relative;
   padding: 16px 44px 16px 24px;
   border-radius: 6px;
@@ -83,7 +82,7 @@ const StyledList = styled.ul`
   }
 `;
 
-const StyledItem = styled.li`
+const StyledItem = styled(Link)`
   display: block;
   text-decoration: none;
   color: inherit;
@@ -174,14 +173,11 @@ class Dropdown extends Component {
         </StyledLabel>
         <StyledList>
           {options.map(option => (
-            <StyledItem
-              as={Link}
-              to={`/${option.toLowerCase()}`}
-              key={option}
-              onClick={this.handleChooseItem}
-            >
-              {option}
-            </StyledItem>
+            <li key={option}>
+              <StyledItem to={`/${option.toLowerCase()}`} onClick={this.handleChooseItem}>
+                {option}
+              </StyledItem>
+            </li>
           ))}
         </StyledList>
       </StyledWrapper>
