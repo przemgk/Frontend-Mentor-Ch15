@@ -32,6 +32,7 @@ const FilterBar = ({ handleSearching }) => (
     <StyledSearchInput
       onChange={({ target: { value } }) => handleSearching(value)}
       placeholder="Search for a country..."
+      aria-label="Type country name which you serach"
     />
     <Dropdown
       label="Filter by Region"
