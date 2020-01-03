@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Strong from 'components/atoms/Strong/Strong';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
@@ -21,53 +21,50 @@ const StyledButton = styled(Button)`
   }
 `;
 
-class DataSet extends Component {
-  state = { redirect: false, url: '' };
+const DataSet = ({ type, label, nullMessage, value }) => {
+  const [redirectParams, setRedirectParams] = useState({ redirect: false, url: '' });
+  const { redirect, url } = redirectParams;
 
-  handleRedirect = url => this.setState({ redirect: true, url });
+  if (redirect) {
+    return <Redirect to={url} />;
+  }
 
-  render() {
-    const { type, label, nullMessage } = this.props;
-    let { value } = this.props;
-    const { redirect, url } = this.state;
+  if (type === 'text') {
+    let formatedValue = value;
 
-    if (redirect) {
-      return <Redirect to={url} />;
-    }
-
-    if (!value) {
-      value = 'Unidentified';
-    } else if (typeof value === 'number') {
-      value = value.toLocaleString('en-US', { useGrouping: true });
-    }
-
-    if (type === 'text') {
-      return (
-        <StyledDataSet>
-          <Strong>{label}: </Strong>
-          <Paragraph>{value}</Paragraph>
-        </StyledDataSet>
-      );
+    if (typeof formatedValue === 'number') {
+      formatedValue = value.toLocaleString('en-US', { useGrouping: true });
     }
 
     return (
       <StyledDataSet>
-        <StyledHeading as="h3" small>
-          {`${label}: `}
-        </StyledHeading>
-        {value.length > 0 ? (
-          value.map(({ name, url: countryUrl }) => (
-            <StyledButton small onClick={() => this.handleRedirect(countryUrl)} key={name}>
-              {name}
-            </StyledButton>
-          ))
-        ) : (
-          <Paragraph>{nullMessage}</Paragraph>
-        )}
+        <Strong>{label}: </Strong>
+        <Paragraph>{!formatedValue ? 'Unidentified' : formatedValue}</Paragraph>
       </StyledDataSet>
     );
   }
-}
+
+  return (
+    <StyledDataSet>
+      <StyledHeading as="h3" small>
+        {`${label}: `}
+      </StyledHeading>
+      {value.length > 0 ? (
+        value.map(({ name, url: countryUrl }) => (
+          <StyledButton
+            small
+            onClick={() => setRedirectParams({ redirect: true, url: countryUrl })}
+            key={name}
+          >
+            {name}
+          </StyledButton>
+        ))
+      ) : (
+        <Paragraph>{nullMessage}</Paragraph>
+      )}
+    </StyledDataSet>
+  );
+};
 
 DataSet.propTypes = {
   type: PropTypes.oneOf(['text', 'buttons']).isRequired,
