@@ -20,7 +20,7 @@ const Root = () => (
           <Route exact path={routes.europe} component={Home} />
           <Route exact path={routes.oceania} component={Home} />
           <Route exact path={routes.countries} component={Details} />
-          <Route exact path={routes.ConnectionFailed} component={ConnectionFailed} />
+          <Route exact path={routes.connectionFailed} component={ConnectionFailed} />
           <Route exact path="*" component={NotFound404} />
         </Switch>
       </MainTemplate>
