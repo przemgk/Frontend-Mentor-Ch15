@@ -18,7 +18,9 @@ const Details = ({ match }) => {
   }
 
   if (!isFetchingData && isReady) {
-    const [data] = countriesData.filter(({ name }) => name.toLowerCase() === match.params.id);
+    const [data] = countriesData.filter(
+      ({ name }) => name.toLowerCase() === decodeURI(match.params.id)
+    );
 
     return (
       <DetailsTemplate

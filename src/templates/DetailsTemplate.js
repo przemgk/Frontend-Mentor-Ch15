@@ -2,13 +2,13 @@ import React from 'react';
 import MenuBarTemplate from 'templates/MenuBarTemplate';
 import PropTypes from 'prop-types';
 import styled, { withTheme } from 'styled-components';
-import { Link } from 'react-router-dom';
 import { routes } from 'routes';
 import Button from 'components/atoms/Button/Button';
 import FlagBox from 'components/atoms/FlagBox/FlagBox';
 import Heading from 'components/atoms/Heading/Heading';
 import DataSet, { StyledDataSet } from 'components/molecules/DataSet/DataSet';
 import Preloader from 'components/molecules/Preloader/Preloader';
+import { useHistory } from 'react-router-dom';
 
 const StyledBar = styled.div`
   width: 100%;
@@ -105,7 +105,6 @@ const StyledEssentialData = styled.div`
 `;
 
 const DetailsTemplate = ({
-  preloaderActive,
   flagUrl,
   name,
   nativeName,
@@ -117,12 +116,15 @@ const DetailsTemplate = ({
   currencies,
   languages,
   borderCountries,
-  theme: { icons }
+  theme: { icons },
+  preloaderActive
 }) => {
+  const history = useHistory();
+
   return (
     <MenuBarTemplate>
       <StyledBar>
-        <Button as={Link} to={routes.home} icon={icons.arrow}>
+        <Button onClick={() => history.push(routes.home)} icon={icons.arrow}>
           Back
         </Button>
       </StyledBar>
@@ -178,7 +180,7 @@ DetailsTemplate.propTypes = {
   ),
   theme: PropTypes.shape({
     icons: PropTypes.objectOf(PropTypes.string).isRequired
-  })
+  }).isRequired
 };
 
 DetailsTemplate.defaultProps = {
@@ -193,8 +195,7 @@ DetailsTemplate.defaultProps = {
   topLevelDomain: '',
   currencies: '',
   languages: '',
-  borderCountries: null,
-  theme: null
+  borderCountries: []
 };
 
 export default withTheme(DetailsTemplate);

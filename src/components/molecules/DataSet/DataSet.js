@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Strong from 'components/atoms/Strong/Strong';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 export const StyledDataSet = styled.div``;
 
@@ -22,12 +22,7 @@ const StyledButton = styled(Button)`
 `;
 
 const DataSet = ({ type, label, nullMessage, value }) => {
-  const [redirectParams, setRedirectParams] = useState({ redirect: false, url: '' });
-  const { redirect, url } = redirectParams;
-
-  if (redirect) {
-    return <Redirect to={url} />;
-  }
+  const history = useHistory();
 
   if (type === 'text') {
     let formatedValue = value;
@@ -50,12 +45,8 @@ const DataSet = ({ type, label, nullMessage, value }) => {
         {`${label}: `}
       </StyledHeading>
       {value.length > 0 ? (
-        value.map(({ name, url: countryUrl }) => (
-          <StyledButton
-            small
-            onClick={() => setRedirectParams({ redirect: true, url: countryUrl })}
-            key={name}
-          >
+        value.map(({ name, url }) => (
+          <StyledButton onClick={() => history.push(url)} small key={name}>
             {name}
           </StyledButton>
         ))
