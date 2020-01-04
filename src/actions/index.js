@@ -43,8 +43,7 @@ export const fetchDataAction = dispatch => {
 
       dispatch({ type: FETCH_SUCCESS, payload: dataWithBoredersNames });
     })
-    .catch(err => {
-      console.log(err);
+    .catch(() => {
       dispatch({ type: FETCH_FAILURE });
     });
 };
