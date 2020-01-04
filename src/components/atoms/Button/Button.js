@@ -12,6 +12,7 @@ const Button = styled.button`
   background-color: ${({ theme }) => theme.elementBgColor};
   box-shadow: 0 0 12px -4px ${({ theme }) => theme.shadowColor};
   cursor: pointer;
+  outline: none;
 
   @media screen and (min-width: 768px) {
     padding: 12px 24px;
