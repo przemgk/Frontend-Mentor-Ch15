@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import { Link, useLocation } from 'react-router-dom';
+import { routes } from 'routes';
 import PropTypes from 'prop-types';
 
 const StyledWrapper = styled.div`
@@ -117,80 +118,52 @@ const StyledItem = styled(Link)`
   }
 `;
 
-class Dropdown extends Component {
-  state = {
-    isActive: false,
-    chosenElement: ''
-  };
+const Dropdown = ({ label, options }) => {
+  const [chosenElement, setChosenElement] = useState('');
+  const [isActive, setActive] = useState(false);
+  const dropdownRef = useRef(null);
+  const { pathname } = useLocation();
 
-  references = React.createRef();
+  const handleDropdownRollKey = e => e.key === 'Escape' && setActive(false);
+  const handleDropdownRollMouse = e => !dropdownRef.current.contains(e.target) && setActive(false);
 
-  componentDidMount() {
-    document.addEventListener('keydown', this.handleDropdownRollKey);
-    document.addEventListener('mousedown', this.handleDropdownRollMouse);
+  useEffect(() => {
+    const matchRegion = routes[pathname.slice(1)];
 
-    this.setCurrentOption();
-  }
+    setChosenElement(matchRegion ? matchRegion.slice(1) : '');
+  }, [pathname]);
 
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleDropdownRollKey);
-    document.removeEventListener('mousedown', this.handleDropdownRollMouse);
-  }
+  useEffect(() => {
+    document.addEventListener('keydown', handleDropdownRollKey);
+    document.addEventListener('mousedown', handleDropdownRollMouse);
 
-  handleDropdownRollMouse = e =>
-    !e.path.includes(this.references.current) && this.setState({ isActive: false });
+    return () => {
+      document.removeEventListener('keydown', handleDropdownRollKey);
+      document.removeEventListener('mousedown', handleDropdownRollMouse);
+    };
+  }, [dropdownRef]);
 
-  handleDropdownRollKey = e => e.key === 'Escape' && this.setState({ isActive: false });
-
-  handleDropdown = () =>
-    this.setState(prevState => ({
-      isActive: !prevState.isActive
-    }));
-
-  handleChooseItem = e => this.setState({ isActive: false, chosenElement: e.target.textContent });
-
-  setCurrentOption = () => {
-    const {
-      options,
-      location: { pathname }
-    } = this.props;
-
-    const [currentOption] = options.filter(option => option.toLowerCase() === pathname.substr(1));
-
-    if (currentOption) {
-      this.setState({ chosenElement: currentOption });
-    }
-  };
-
-  render() {
-    const { options, label } = this.props;
-    const { isActive, chosenElement } = this.state;
-
-    return (
-      <StyledWrapper ref={this.references} className={isActive && 'active'}>
-        <StyledLabel onClick={this.handleDropdown}>
-          {chosenElement === '' ? label : chosenElement}
-        </StyledLabel>
-        <StyledList>
-          {options.map(option => (
-            <li key={option}>
-              <StyledItem to={`/${option.toLowerCase()}`} onClick={this.handleChooseItem}>
-                {option}
-              </StyledItem>
-            </li>
-          ))}
-        </StyledList>
-      </StyledWrapper>
-    );
-  }
-}
+  return (
+    <StyledWrapper ref={dropdownRef} className={isActive && 'active'}>
+      <StyledLabel onClick={() => setActive(!isActive)}>
+        {chosenElement === '' ? label : chosenElement}
+      </StyledLabel>
+      <StyledList>
+        {options.map(option => (
+          <li key={option}>
+            <StyledItem to={`/${option.toLowerCase()}`} onClick={() => setActive(false)}>
+              {option}
+            </StyledItem>
+          </li>
+        ))}
+      </StyledList>
+    </StyledWrapper>
+  );
+};
 
 Dropdown.propTypes = {
   label: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
-  }).isRequired
+  options: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
-export default withRouter(Dropdown);
+export default Dropdown;

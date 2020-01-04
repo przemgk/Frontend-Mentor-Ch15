@@ -15,9 +15,9 @@ const Home = ({ match: { path } }) => {
   useEffect(() => changeReadyState(true), []);
 
   useEffect(() => {
-    if (routes[path.slice(1)]) {
-      setCurrentRegion(routes[path.slice(1)].slice(1));
-    }
+    const matchRegion = routes[path.slice(1)];
+
+    setCurrentRegion(matchRegion ? matchRegion.slice(1) : '');
   }, [path]);
 
   if (isFetchingError) {
