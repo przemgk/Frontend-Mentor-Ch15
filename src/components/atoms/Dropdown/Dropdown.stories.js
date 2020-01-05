@@ -13,7 +13,7 @@ export const normal = () => {
   const label = 'Data';
   const defaultValue = {
     label: 'Filter by Region',
-    options: ['africa', 'america', 'asia', 'europe', 'oceania']
+    options: ['africa', 'americas', 'asia', 'europe', 'oceania']
   };
   const groupId = 'Component';
 
