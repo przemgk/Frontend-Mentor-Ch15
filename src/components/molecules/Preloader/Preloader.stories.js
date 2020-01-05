@@ -8,11 +8,11 @@ export default {
 };
 
 export const normal = () => {
-  const labelText = 'Message';
-  const defaultValueText = 'Wait for data download...';
-  const groupIdText = 'Component';
+  const label = 'Message';
+  const defaultValue = 'Wait for data download...';
+  const groupId = 'Component';
 
-  const valueText = text(labelText, defaultValueText, groupIdText);
+  const value = text(label, defaultValue, groupId);
 
-  return <Preloader message={valueText} />;
+  return <Preloader message={value} />;
 };

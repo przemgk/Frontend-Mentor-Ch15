@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import FlagBox from 'components/atoms/FlagBox/FlagBox';
 import Heading from 'components/atoms/Heading/Heading';
 import DataSet from 'components/molecules/DataSet/DataSet';
 import PropTypes from 'prop-types';
-import { Redirect, generatePath } from 'react-router-dom';
+import { generatePath, useHistory } from 'react-router-dom';
 import { routes } from 'routes';
 
 const StyledWrapper = styled.div`
@@ -65,18 +65,14 @@ const StyledDataGrid = styled.div`
 `;
 
 const Card = ({ name, desc, flagUrl }) => {
-  const [redirect, setRedirect] = useState(false);
+  const history = useHistory();
 
-  if (redirect) {
-    const detailsPath = generatePath(routes.countries, {
-      id: encodeURI(name.toLowerCase())
-    });
-
-    return <Redirect to={detailsPath} />;
-  }
+  const detailsPath = generatePath(routes.countries, {
+    id: encodeURI(name.toLowerCase())
+  });
 
   return (
-    <StyledWrapper onClick={() => setRedirect(true)}>
+    <StyledWrapper onClick={() => history.push(detailsPath)}>
       <StyledFlagBox url={flagUrl} />
       <StyledContentWrapper>
         <StyledHeading as="h2" small>

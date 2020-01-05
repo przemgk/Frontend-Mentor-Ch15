@@ -1,10 +1,12 @@
 import React from 'react';
 import { text as knobsText, object } from '@storybook/addon-knobs';
+import StoryRouter from 'storybook-react-router';
 import DataSet from './DataSet';
 
 export default {
   component: DataSet,
-  title: 'Molecules/DataSet'
+  title: 'Molecules/DataSet',
+  decorators: [StoryRouter()]
 };
 
 export const text = () => {

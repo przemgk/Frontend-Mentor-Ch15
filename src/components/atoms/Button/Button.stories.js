@@ -9,13 +9,13 @@ export default {
 };
 
 export const normal = () => {
-  const labelShadow = 'Hide shadow';
-  const defaultValueShadow = false;
-  const groupIdShadow = 'Component';
+  const label = 'Hide shadow';
+  const defaultValue = false;
+  const groupId = 'Component';
 
-  const valueShadow = boolean(labelShadow, defaultValueShadow, groupIdShadow);
+  const value = boolean(label, defaultValue, groupId);
 
-  return <Button hideShadow={valueShadow}>This is sample button</Button>;
+  return <Button hideShadow={value}>This is sample button</Button>;
 };
 
 export const small = () => <Button small>This is small Button</Button>;

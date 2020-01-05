@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { text, object } from '@storybook/addon-knobs';
+import StoryRouter from 'storybook-react-router';
 import Card from './Card';
 
 const StyledCardWrapper = styled.div`
@@ -10,7 +11,8 @@ const StyledCardWrapper = styled.div`
 
 export default {
   component: Card,
-  title: 'Molecules/Card'
+  title: 'Molecules/Card',
+  decorators: [StoryRouter()]
 };
 
 export const normal = () => {

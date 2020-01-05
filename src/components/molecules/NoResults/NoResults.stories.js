@@ -8,11 +8,11 @@ export default {
 };
 
 export const normal = () => {
-  const labelQuery = 'Search query';
-  const defaultValueQuery = 'unlabelled country';
-  const groupIdQuery = 'Component';
+  const label = 'Search ';
+  const defaultValue = 'unlabelled country';
+  const groupId = 'Component';
 
-  const valueQuery = text(labelQuery, defaultValueQuery, groupIdQuery);
+  const value = text(label, defaultValue, groupId);
 
-  return <NoResults searchQuery={valueQuery} />;
+  return <NoResults searchQuery={value} />;
 };

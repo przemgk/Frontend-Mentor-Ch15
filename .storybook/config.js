@@ -6,6 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from 'theme/mainTheme';
 import { withKnobs, select } from '@storybook/addon-knobs';
 import styled from 'styled-components';
+import Store from 'store';
 
 const StyledStorybookWrapper = styled.div`
   padding: 24px;
@@ -27,13 +28,15 @@ addDecorator(story => {
   const { icons } = theme(`${valueTheme}`);
 
   return (
-    <StyledStorybookWrapper>
-      <Normalize />
-      <ThemeProvider theme={theme(`${valueTheme}`)}>
-        <GlobalStyles />
-        {story({ icons, valueTheme })}
-      </ThemeProvider>
-    </StyledStorybookWrapper>
+    <Store>
+      <StyledStorybookWrapper>
+        <Normalize />
+        <ThemeProvider theme={theme(`${valueTheme}`)}>
+          <GlobalStyles />
+          {story({ icons, valueTheme })}
+        </ThemeProvider>
+      </StyledStorybookWrapper>
+    </Store>
   );
 });
 

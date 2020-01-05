@@ -8,11 +8,11 @@ export default {
 };
 
 export const normal = () => {
-  const labelText = 'Strong content';
-  const defaultValueText = 'This is sample strong';
-  const groupIdText = 'Component';
+  const label = 'Strong content';
+  const defaultValue = 'This is sample strong';
+  const groupId = 'Component';
 
-  const valueText = text(labelText, defaultValueText, groupIdText);
+  const value = text(label, defaultValue, groupId);
 
-  return <Strong>{valueText}</Strong>;
+  return <Strong>{value}</Strong>;
 };
