@@ -22,6 +22,10 @@ const Details = ({ match }) => {
       ({ name }) => name.toLowerCase() === decodeURI(match.params.id)
     );
 
+    if (!data) {
+      return <Redirect to="/404" />;
+    }
+
     return (
       <DetailsTemplate
         flagUrl={data.flag}
